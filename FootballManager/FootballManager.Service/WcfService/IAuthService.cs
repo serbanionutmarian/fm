@@ -15,5 +15,4 @@ namespace WcfService
         [OperationContract]
         void SignUp(SignupDto input);
     }
-
 }
