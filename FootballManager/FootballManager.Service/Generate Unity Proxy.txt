@@ -1,0 +1,3 @@
+-open command prompt
+-go to svcutil from mono editor (for insance "c:\Program Files (x86)\Unity\Editor\Data\Mono\lib\mono\2.0\svcutil.exe")
+-run svcutil tool (for instance svcutil.exe -out:C:\Users\Administrator\Documents\First2DGame\Assets\Code\ServiceProxy.cs http://localhost:50551/Service1.svc?WSDL)
