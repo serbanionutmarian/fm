@@ -102,14 +102,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IAuthService.cs" />
-    <Compile Include="Modules\EntityFrameworkModule.cs" />
-    <Compile Include="Modules\RepositoryModule.cs" />
-    <Compile Include="Modules\DataServiceModule.cs" />
-    <Compile Include="Modules\WcfServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Modules\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
