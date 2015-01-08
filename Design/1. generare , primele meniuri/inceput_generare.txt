@@ -1,0 +1,46 @@
+vom face un sistem de serii. vom concepe jocul ca pentru online, insa il vom face sa functioneze offline momentan. asadar, vom avea 3 nivele de ligi, sa zicem, concepute in sistem piramidal. 1 divizie A, 4 div B, 16 div C. 
+Userul, la inscriere, va primi intotdeauna o echipa de divizia C. In jocul online, userii nu vor sti daca joaca cu useri reali sau AI (ca la hattrick).
+Deci, cand un user va primi echipa, va beneficia de un numar fix de "puncte" distribuit aleator in calitatile jucatorilor sai. Daca vom folosi scara 1-20 ca la FM/CM, atunci nici un jucator generat automat nu va primi vreo calitate peste 10. media calitatilor sa zicem ca va fi ceva gen 6-7. userul NU va avea posibilitatea de a customiza el jucatorii sai. in modul acesta vom suscita talentul userul de a se descurca intr-o situatie noua, cu material divers, de a se adapta la conditiile date, etc. e mult mai intersant decat daca ar customiza chiar el totul. totusi, inainte de generare (a celor 25 de jucatori), userul va putea alege intre o echipa generata automat de profil ofensiv, defensiv sau echilibrat.
+Userul va pune nume echipei si nickname-uri la jucatori, de asemenea isi va denumi stadionul si fan-clubul.
+
+Deocamdata avem 28 de atribute:
+Atac: finalizare, sut de la distanta, demarcaj, creatie(fler), tehnica, dribling, cap
+Fizic: agilitate, acceleratie, viteza, stamina, forta, injury proneness, echilibru
+Constructie: pase, viziune, teamwork, centrare, DEMARCAJ
+Mental: lider, teamwork, agresiune, tenacitate, viziune, creatie(fler)
+defensiv: deposedare, marcaj, pozitionare, agresiune, cap
+faze fixe: lovituri libere, penalty, cornere, auturi
+
+Unele din ele se repeta pentru a putea face calcul la cele 6 grupe de atribute, insa le-am numarat eu si sunt 28.
+28x20 =560 maxim posibil.
+Dupa cum am zis, o echipa abia formata va avea media atributelor jucatorilor sai de 7. Nici o calitate nu va fi mai mare de 10, totusi...
+Deci la calitatile unui jucator se vor distribui 28x7=196 de puncte. Aceasta este "current ability" din FM/CM. Cand jucatorul va fi generat, va primi, desigur si un "potential ability". 
+(Acesta din urma nu va fi fix, ci se va putea usor modifica. De asemenea, in functie de anumite aspecte ale clubului si ale staff-ului, se vor genera jucatori cu potential ability mai mare; insa despre acestea vom vorbi in alt capitol)
+Varsta va avea si ea, desigur, un cuvant de spus in evolutia jucatorului. Doi jucatori, in momentul generarii, desi vor avea amandoi nr fix de puncte (196), e clar ca va fi mult mai valoros cel care care 18 ani decat cel care are 25. Totusi, un juc de 18 ani cu potential ability f mic va interesa mai putin decat unul de 25 cu potential ability f mare. (Lucrurile le vom preciza si stabili foarte clar la momentul potrivit). Aici m-am referit la antrenament; viteza antrenamentului va depinde in mare masura de varsta (si de ambitia jucatorului) si apoi si de facilitati, antrenor etc.
+
+Dupa cum am zis mai sus, userul va avea de ales intre o echipa cu profil ofensiv, defensiv sau echilibrat.
+
+OFENSIV - atributele de ATAC si FAZE FIXE vor avea ca valoare maxima 10 (max posibil) si minim 6; atributele DEFENSIV vor fi minim 2 si maxim 6; categoriile FIZIC, MENTAL si CONSTRUCTIE vor fi intre 4 si 8
+
+DEFENSIV - atributele de DEFENSIV si FIZIC vor avea ca valoare maxima 10 si minim 6; atributele de ATAC vor fi minim 2 si maxim 6; categoriile MENTAL, CONSTRUCTIE si FAZE FIXE vor fi intre 4 si 8
+
+CONSTRUCTIE - atributele de CONSTRUCTIE si MENTAL vor fi maxim 10 si minim 6; atributele de FIZIC vor fi intre 2 si 6; ATAC, DEFENSIV si FAZE FIXE vor fi intre 3 si 7 (!)
+
+ECHILIBRAT - toate atributele vor fi intre 4 si 8
+
+
+Se va genera un numar fix de jucatori pe fiecare pozitie, pentru toata lumea, dupa cum urmeaza:
+7 fundasi, 6 mijlocasi, 4 extreme, 5 atacanti si 3 portari, total 25 de jucatori
+
+Portarii au atribute speciale si deci generare diferita samd - despre ei vom studia mai incolo
+
+totusi, ca o exceptie de la regula de generare de mai sus, dam urmatoarele:
+
+fundasii - nu vor avea deposedare si marcaj mai mici de 5
+mijlocasii - nu vor avea pase si teamwork mai mici de 5
+extremele - nu vor avea centrare si viteza mai mici de 5
+atacantii - nu vor avea finalizare si demarcaj mai mici de 5
+
+portarii - nu vor avea, sa zicem, reflexe si pozitionare mai mici de 5
+
+

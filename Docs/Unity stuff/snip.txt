@@ -1,0 +1,51 @@
+1. Examples how to get childs, objects, tags etc:
+   a) find objects by name
+		mButton = GameObject.Find ("Button");
+		Text text = mButton.GetComponentInChildren<Text> ();
+
+		mButton   = GameObject.Find ("Button");
+		component = mButton.GetComponent<Button> ();
+
+
+    b) // Faster way if we are already in the hierarchy
+		Transform child = transform.GetChild(0);
+		GameObject textOb = child.gameObject;
+		Text text = textOb.GetComponent<Text> ();
+
+    c) tags
+		GameObject[] enemies;
+		enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+
+    d) how to use and instantiate prefabs
+		1. Create->prefab (in project window)
+		2. Make the object in editor, and drag it to prefab
+		3. The script which instantiate the prefab has a public member, mPrefab were we drag the prefab in editor
+		4. Use Instantiate func to create an instace,then result.transform.SetParent (transform.parent);
+
+    e) How to add listener dynamic
+
+		refButton.onClick.RemoveAllListeners();
+		//Add your new event using lambda notation
+		refButton.onClick.AddListener (handleButton);
+
+	+ can also add EventTrigger for other than default events
+
+    f) Drag and Drop -> custom events in editor
+
+   Ex with reusing object:
+
+	mTextInst = (GameObject)Instantiate (mPrefabText);
+	mTextInst.SetActive (false);
+	mTextInst.transform.SetParent (transform.parent);
+
+
+   	public void OnDrag()
+	{
+		Debug.Log (Input.mousePosition);
+		mTextInst.SetActive (true);
+		mTextInst.transform.position = Input.mousePosition;
+	}
+
+
+
+-> Communication with model: can instantiate a class in the same namespace

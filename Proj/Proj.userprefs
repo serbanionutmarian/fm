@@ -1,0 +1,42 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MenuPages\MenuPage_NewUser.cs">
+    <Files>
+      <File FileName="Assets\GUIProxyI.cs" Line="51" Column="36" />
+      <File FileName="Assets\MenuPages\MenuPage_Login.cs" Line="37" Column="4" />
+      <File FileName="Assets\GameplayCore.cs" Line="19" Column="3" />
+      <File FileName="Assets\MenuManager.cs" Line="76" Column="1" />
+      <File FileName="Assets\MenuPages\MenuPage_NewUser.cs" Line="40" Column="28" />
+      <File FileName="Assets\MenuPages\MenuPage_MainMenu.cs" Line="21" Column="92" />
+      <File FileName="Assets\Utils.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="MenuPages" expanded="True">
+              <Node name="MenuPage_NewUser.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\GUIProxyI.cs" line="35" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\GUIProxyI.cs" line="40" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\GUIProxyI.cs" line="10" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\MenuManager.cs" line="76" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\MenuPages\MenuPage_Login.cs" line="21" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\GUIProxyI.cs" line="27" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\MenuPages\MenuPage_Login.cs" line="46" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\MenuPages\MenuPage_NewUser.cs" line="63" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\MenuPages\MenuPage_NewUser.cs" line="45" />
+      <Breakpoint file="C:\Users\CPaduraru\Dropbox\FmProject3\Proj\Assets\GUIProxyI.cs" line="54" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\MenuPages\MenuPage_NewUser.cs" line="42" offsetX="637" offsetY="697" expression="mailGO" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>

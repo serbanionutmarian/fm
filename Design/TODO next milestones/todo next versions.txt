@@ -1,0 +1,5 @@
+1. transfers between online players / AIs, loans
+2. news, interviewes, fines, injuries
+3. you have a rating, board can fire you - in this moment you can create another team...
+4. intelligent match playing using at least text with events.
+5. scouts
