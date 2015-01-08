@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
-using WcfService.Modules;
+using WcfService.AutofacModules;
 using System.Data.Entity;
 using Model;
 

@@ -98,6 +98,10 @@
     <Compile Include="AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
     </Compile>
+    <Compile Include="AutofacModules\DataServiceModule.cs" />
+    <Compile Include="AutofacModules\EntityFrameworkModule.cs" />
+    <Compile Include="AutofacModules\RepositoryModule.cs" />
+    <Compile Include="AutofacModules\WcfServiceModule.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -106,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Modules\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
