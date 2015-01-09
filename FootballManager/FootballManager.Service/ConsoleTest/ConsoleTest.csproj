@@ -58,9 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\EFModule.cs" />
-    <Compile Include="Modules\RepositoryModule.cs" />
-    <Compile Include="Modules\ServiceModule.cs" />
+    <Compile Include="AutofacModules\EFModule.cs" />
+    <Compile Include="AutofacModules\RepositoryModule.cs" />
+    <Compile Include="AutofacModules\ServiceModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
