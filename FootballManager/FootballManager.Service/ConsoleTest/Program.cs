@@ -25,7 +25,7 @@ namespace ConsoleTest
         private static void RunMethod(ILifetimeScope scope)
         {
             var service = scope.Resolve<IDataGeneratorService>();
-            service.AddLeages();
+            service.AddLeagesToAllCountries();
         }
 
         private static void RunUsingIoc(Action<ILifetimeScope> action)

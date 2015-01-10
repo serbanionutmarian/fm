@@ -35,17 +35,20 @@ namespace DataService.Services
 
         #endregion
 
-        public void AddLeages()
+        /// <summary>
+        /// iterate throw all countries and add it required new leages
+        /// </summary>
+        public void AddLeagesToAllCountries()
         {
-            var leagesConfigurations = _leagesConfigurationRepository.GetAll().ToList();
-            var countries = _countryService.GetAll().ToList();
+            var leagesConfigurations = _leagesConfigurationRepository.GetAll();
+            var countries = _countryService.GetAll();
             foreach (var country in countries)
             {
-                AddLeages(leagesConfigurations, country);
+                AddLeagesToCountry(leagesConfigurations, country);
             }
         }
 
-        private void AddLeages(IEnumerable<Model.Tables.LeagesConfiguration> leagesConfigurations, Model.Tables.Country country)
+        private void AddLeagesToCountry(IEnumerable<Model.Tables.LeagesConfiguration> leagesConfigurations, Model.Tables.Country country)
         {
             if (country.NrOfLeagesToAdd == 0)
             {
@@ -69,12 +72,12 @@ namespace DataService.Services
                 {
                     foreach (var series in parentSeries)
                     {
-                        parentSeries = AddLeages(configuration, series, country.Id);
+                        parentSeries = AddSeriesToCountry(configuration, series, country.Id);
                     }
                 }
                 else
                 {
-                    parentSeries = AddLeages(configuration, null, country.Id);
+                    parentSeries = AddSeriesToCountry(configuration, null, country.Id);
                 }
             }
             country.CurrentNrOfLeages += country.NrOfLeagesToAdd;
@@ -82,10 +85,10 @@ namespace DataService.Services
             _unitOfWork.Commit();
         }
 
-        private List<Model.Tables.Series> AddLeages(Model.Tables.LeagesConfiguration configuration, Model.Tables.Series parentSeries, int countryId)
+        private List<Model.Tables.Series> AddSeriesToCountry(Model.Tables.LeagesConfiguration configuration, Model.Tables.Series parentSeries, int countryId)
         {
             var result = new List<Model.Tables.Series>();
-            for (int j = 0; j < configuration.NrOfBranchSeries; j++)
+            for (int i = 0; i < configuration.NrOfBranchSeries; i++)
             {
                 // add series
                 var series = new Model.Tables.Series()
@@ -97,7 +100,7 @@ namespace DataService.Services
                 _seriesRepository.Add(series);
                 result.Add(series);
                 //add team boots
-                for (int k = 0; k < configuration.CurrentNrOfTeams; k++)
+                for (int j = 0; j < configuration.CurrentNrOfTeams; j++)
                 {
                     AddTeamBoot(series);
                 }
@@ -105,13 +108,13 @@ namespace DataService.Services
             return result;
         }
 
-        private void AddTeamBoot(Model.Tables.Series parentSeries)
+        private void AddTeamBoot(Model.Tables.Series series)
         {
             _teamRepository.Add(new Model.Tables.Team()
             {
                 Name = "team " + Guid.NewGuid(),
                 IsBoot = true,
-                Series = parentSeries
+                Series = series
             });
         }
     }

@@ -8,6 +8,6 @@ namespace DataService.Interfaces
 {
     public interface IDataGeneratorService
     {
-        void AddLeages();
+        void AddLeagesToAllCountries();
     }
 }
