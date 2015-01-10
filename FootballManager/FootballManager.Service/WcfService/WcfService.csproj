@@ -102,7 +102,6 @@
     <Compile Include="AutofacModules\EntityFrameworkModule.cs" />
     <Compile Include="AutofacModules\RepositoryModule.cs" />
     <Compile Include="AutofacModules\WcfServiceModule.cs" />
-    <Compile Include="DbManagerContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
