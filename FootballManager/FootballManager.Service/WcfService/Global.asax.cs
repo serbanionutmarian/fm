@@ -10,7 +10,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using WcfService.AutofacModules;
 using System.Data.Entity;
-using Model;
+using DataModel;
 
 namespace WcfService
 {

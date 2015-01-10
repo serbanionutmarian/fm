@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{8D93C360-D06C-4AF9-906E-928DF1710566}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "Model\DataModel.csproj", "{8D93C360-D06C-4AF9-906E-928DF1710566}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{86860E09-5C66-41A9-B1A7-7C40000ABC95}"
 EndProject
@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A7E03E8F-A
 	ProjectSection(SolutionItems) = preProject
 		Generate Unity Proxy.txt = Generate Unity Proxy.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DtoModel", "DtoModel\DtoModel.csproj", "{323C2F95-86E0-40F2-8087-9E18E3E434D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{19AFE592-485C-4AC2-9945-262A4A74800A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19AFE592-485C-4AC2-9945-262A4A74800A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19AFE592-485C-4AC2-9945-262A4A74800A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{323C2F95-86E0-40F2-8087-9E18E3E434D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{323C2F95-86E0-40F2-8087-9E18E3E434D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{323C2F95-86E0-40F2-8087-9E18E3E434D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{323C2F95-86E0-40F2-8087-9E18E3E434D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

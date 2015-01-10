@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Tables
+namespace DataModel.Tables
 {
     [Table("Users")]
     public class User : Entity<int>

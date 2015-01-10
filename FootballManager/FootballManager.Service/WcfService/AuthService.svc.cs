@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DtoModel.Auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -16,7 +17,7 @@ namespace WcfService
             _service = service;
         }
 
-        public void SignUp(Model.Dto.SignupDto input)
+        public void SignUp(SignupDto input)
         {
             _service.SignUp(input);
         }

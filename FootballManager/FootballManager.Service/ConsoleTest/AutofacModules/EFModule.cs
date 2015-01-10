@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Autofac;
-using Model;
+using DataModel;
 using Repository;
 
 namespace AutofacModules.Modules

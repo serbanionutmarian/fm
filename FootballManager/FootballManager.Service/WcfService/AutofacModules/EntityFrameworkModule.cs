@@ -4,9 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Autofac;
-using Model;
 using Repository;
 using Autofac.Integration.Wcf;
+using DataModel;
 
 namespace WcfService.AutofacModules
 {

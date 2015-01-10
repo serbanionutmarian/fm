@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Tables
+namespace DataModel.Tables
 {
     [Table("Countries")]
     public class Country : Entity<int>

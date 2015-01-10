@@ -59,9 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\DataModel.csproj">
       <Project>{8d93c360-d06c-4af9-906e-928df1710566}</Project>
-      <Name>Model</Name>
+      <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

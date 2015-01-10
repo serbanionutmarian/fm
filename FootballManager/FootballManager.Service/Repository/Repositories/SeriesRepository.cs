@@ -1,4 +1,4 @@
-﻿using Model.Tables;
+﻿using DataModel.Tables;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;

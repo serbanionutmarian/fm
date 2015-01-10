@@ -48,7 +48,7 @@ namespace DataService.Services
             }
         }
 
-        private void AddLeagesToCountry(IEnumerable<Model.Tables.LeagesConfiguration> leagesConfigurations, Model.Tables.Country country)
+        private void AddLeagesToCountry(IEnumerable<DataModel.Tables.LeagesConfiguration> leagesConfigurations, DataModel.Tables.Country country)
         {
             if (country.NrOfLeagesToAdd == 0)
             {
@@ -84,13 +84,13 @@ namespace DataService.Services
             _unitOfWork.Commit();
         }
 
-        private List<Model.Tables.Series> AddSeriesToCountry(Model.Tables.LeagesConfiguration configuration, Model.Tables.Series parentSeries, int countryId)
+        private List<DataModel.Tables.Series> AddSeriesToCountry(DataModel.Tables.LeagesConfiguration configuration, DataModel.Tables.Series parentSeries, int countryId)
         {
-            var result = new List<Model.Tables.Series>();
+            var result = new List<DataModel.Tables.Series>();
             for (int i = 0; i < configuration.NrOfBranchSeries; i++)
             {
                 // add series
-                var series = new Model.Tables.Series()
+                var series = new DataModel.Tables.Series()
                 {
                     CountryId = countryId,
                     LeagesConfigurationId = configuration.Id,
@@ -107,9 +107,9 @@ namespace DataService.Services
             return result;
         }
 
-        private void AddTeamBoot(Model.Tables.Series series)
+        private void AddTeamBoot(DataModel.Tables.Series series)
         {
-            _teamRepository.Add(new Model.Tables.Team()
+            _teamRepository.Add(new DataModel.Tables.Team()
             {
                 Name = "team " + Guid.NewGuid(),
                 IsBoot = true,

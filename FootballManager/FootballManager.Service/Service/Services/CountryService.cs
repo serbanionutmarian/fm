@@ -1,4 +1,4 @@
-﻿using Model.Tables;
+﻿using DataModel.Tables;
 using Repository;
 using Repository.Interfaces;
 using DataService;

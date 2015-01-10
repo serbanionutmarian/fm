@@ -11,7 +11,7 @@ using DataService.Services;
 using DataService.Interfaces;
 using AutofacModules.Modules;
 using System.Data.Entity;
-using Model;
+using DataModel;
 
 namespace ConsoleTest
 {

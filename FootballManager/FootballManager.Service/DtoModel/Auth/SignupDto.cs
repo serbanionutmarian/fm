@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Dto
+namespace DtoModel.Auth
 {
     [DataContract]
     public class SignupDto
@@ -21,9 +21,6 @@ namespace Model.Dto
 
         [DataMember]
         public string Email { get; set; }
-
-        [DataMember]
-        public string TeamName { get; set; }
 
         [DataMember]
         public int? TeamId { get; set; }

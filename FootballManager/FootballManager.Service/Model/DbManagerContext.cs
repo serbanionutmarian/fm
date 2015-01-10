@@ -1,4 +1,4 @@
-﻿using Model.Tables;
+﻿using DataModel.Tables;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace DataModel
 {
     public class DbManagerContext : DbContext
     {

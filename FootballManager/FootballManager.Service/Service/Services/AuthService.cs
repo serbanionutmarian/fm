@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DtoModel.Auth;
 
 namespace DataService.Services
 {
@@ -22,7 +23,7 @@ namespace DataService.Services
             _teamRepository = teamRepository;
         }
 
-        public void SignUp(Model.Dto.SignupDto input)
+        public void SignUp(SignupDto input)
         {
             // TO DO!! (when we'll add countries in UI)
             if (input.CountryId == 0)
@@ -31,7 +32,7 @@ namespace DataService.Services
                 input.CountryId = 1;
             }
 
-            _userRepository.Add(new Model.Tables.User()
+            _userRepository.Add(new DataModel.Tables.User()
             {
                 DisplayName = input.DisplayName,
                 Email = input.Email,
@@ -40,10 +41,6 @@ namespace DataService.Services
                 TeamId = _teamRepository.GetBestBootId(input.CountryId),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
-            });
-            _teamRepository.Add(new Model.Tables.Team()
-            {
-                Name = input.TeamName
             });
 
             _unitOfWork.Commit();
