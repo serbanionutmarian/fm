@@ -9,5 +9,6 @@ namespace Repository.Interfaces
 {
     public interface ITeamRepository : IGenericRepository<Team>
     {
+        int GetBestBootId(int countryId);
     }
 }

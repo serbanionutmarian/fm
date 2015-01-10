@@ -61,7 +61,6 @@ namespace DataService.Services
 
             for (int i = 0; i < country.NrOfLeagesToAdd; i++)
             {
-
                 currentNrOfLeages++;
                 var configuration = leagesConfigurations.SingleOrDefault(leageConfiguration => leageConfiguration.Id == currentNrOfLeages);
                 if (configuration == null)

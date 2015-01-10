@@ -24,13 +24,20 @@ namespace DataService.Services
 
         public void SignUp(Model.Dto.SignupDto input)
         {
+            // TO DO!! (when we'll add countries in UI)
+            if (input.CountryId == 0)
+            {
+                // romania
+                input.CountryId = 1;
+            }
+
             _userRepository.Add(new Model.Tables.User()
             {
                 DisplayName = input.DisplayName,
                 Email = input.Email,
                 Password = input.Password,
                 CountryId = input.CountryId,
-                TeamId = input.TeamId,
+                TeamId = _teamRepository.GetBestBootId(input.CountryId),
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             });

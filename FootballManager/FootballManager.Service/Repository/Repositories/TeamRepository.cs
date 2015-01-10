@@ -16,5 +16,12 @@ namespace Repository.Repositories
         {
 
         }
+
+        public int GetBestBootId(int countryId)
+        {
+            // TO DO!! (it's possible to work slow)
+            var result = _entities.Database.SqlQuery<int>("getBestBootId", countryId);
+            return result.Single();
+        }
     }
 }
