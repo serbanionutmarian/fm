@@ -45,10 +45,14 @@
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IGenericRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
+    <Compile Include="Interfaces\ILeagesConfigurationRepository.cs" />
+    <Compile Include="Interfaces\ISeriesRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\LeagesConfigurationRepository.cs" />
+    <Compile Include="Repositories\SeriesRepository.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />

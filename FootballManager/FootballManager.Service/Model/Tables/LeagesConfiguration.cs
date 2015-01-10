@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Model.Tables
 {
-    [Table("Countries")]
-    public class Country : Entity<int>
+    [Table("LeagesConfigurations")]
+    public class LeagesConfiguration : Entity<int>
     {
-        [Required]
-        [MaxLength(255)]
-        public string Name { get; set; }
+        public int? NrOfTeamsPromoted { get; set; }
+
+        public int? NrOfTeamsReleagated { get; set; }
 
         [Required]
-        public int NrOfLeagesToAdd { get; set; }
+        public int CurrentNrOfTeams { get; set; }
 
         [Required]
-        public int CurrentNrOfLeages { get; set; }
+        public int NrOfBranchSeries { get; set; }
     }
 }

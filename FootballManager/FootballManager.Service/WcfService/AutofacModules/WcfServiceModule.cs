@@ -12,8 +12,7 @@ namespace WcfService.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(Assembly.Load("WcfService"))
-                      .Where(t => t.Name.EndsWith("Service")).AsSelf()
-                //.AsImplementedInterfaces()
+                      .Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
         }

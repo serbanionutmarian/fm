@@ -10,6 +10,8 @@ using System.ComponentModel;
 using DataService.Services;
 using DataService.Interfaces;
 using AutofacModules.Modules;
+using System.Data.Entity;
+using Model;
 
 namespace ConsoleTest
 {
@@ -17,12 +19,13 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+            Database.SetInitializer<DbManagerContext>(null);
             RunUsingIoc(RunMethod);
         }
         private static void RunMethod(ILifetimeScope scope)
         {
-            var app = scope.Resolve<IAuthService>();
-            app.SignUp(null);
+            var service = scope.Resolve<IDataGeneratorService>();
+            service.AddLeages();
         }
 
         private static void RunUsingIoc(Action<ILifetimeScope> action)

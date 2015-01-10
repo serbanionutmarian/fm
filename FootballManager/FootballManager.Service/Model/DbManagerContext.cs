@@ -21,5 +21,9 @@ namespace Model
         public DbSet<User> Users { get; set; }
 
         public DbSet<Team> Teams { get; set; }
+
+        public DbSet<LeagesConfiguration> LeagesConfigurations { get; set; }
+
+        public DbSet<Series> Series { get; set; }
     }
 }

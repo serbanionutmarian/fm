@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Model.Tables
+{
+    [Table("Series")]
+    public class Series : Entity<int>
+    {
+        [Required]
+        public int LeagesConfigurationId { get; set; }
+
+        [ForeignKey("LeagesConfigurationId")]
+        public virtual LeagesConfiguration LeagesConfiguration { get; set; }
+
+        public int CountryId { get; set; }
+
+        [Required]
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
+
+        public int? ParentId { get; set; }
+
+        [ForeignKey("ParentId")]
+        public virtual Series Parent { get; set; }
+
+        [ForeignKey("ParentId")]
+        public virtual IEnumerable<Series> Children { get; set; }
+    }
+}

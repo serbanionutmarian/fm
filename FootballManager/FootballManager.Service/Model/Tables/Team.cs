@@ -15,9 +15,12 @@ namespace Model.Tables
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public int? DivisionId { get; set; }
+        public int? SeriesId { get; set; }
 
-        //[ForeignKey("DivisionId")]
-        //public virtual Division Division { get; set; }
+        [ForeignKey("SeriesId")]
+        public virtual Series Series { get; set; }
+
+        [Required]
+        public bool IsBoot { get; set; }
     }
 }
