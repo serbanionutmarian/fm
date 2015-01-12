@@ -15,7 +15,7 @@ namespace DataModel.Tables
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public int? SeriesId { get; set; }
+        public int SeriesId { get; set; }
 
         [ForeignKey("SeriesId")]
         public virtual Series Series { get; set; }

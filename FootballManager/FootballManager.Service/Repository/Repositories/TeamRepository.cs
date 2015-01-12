@@ -3,6 +3,7 @@ using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace Repository.Repositories
 
         }
 
-        public int GetBestBootId(int countryId)
+        public Team GetRandomBoot(int countryId)
         {
-            // TO DO!! (it's possible to work slow)
-            var result = _entities.Database.SqlQuery<int>("getBestBootId", countryId);
-            return result.Single();
+            var parameters = new List<object>();
+            parameters.Add(new SqlParameter("countryId", countryId));
+            return _entities.Database.SqlQuery<Team>("getRandomBoot @countryId", parameters.ToArray()).SingleOrDefault();
         }
     }
 }

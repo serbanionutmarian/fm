@@ -12,6 +12,7 @@ using DataService.Interfaces;
 using AutofacModules.Modules;
 using System.Data.Entity;
 using DataModel;
+using DtoModel.Auth;
 
 namespace ConsoleTest
 {
@@ -24,8 +25,15 @@ namespace ConsoleTest
         }
         private static void RunMethod(ILifetimeScope scope)
         {
-            var service = scope.Resolve<IDataGeneratorService>();
-            service.AddLeagesToAllCountries();
+            var service = scope.Resolve<IAuthService>();
+            service.SignUp(new SignupDto() { 
+                DisplayName="Ionut S.",
+                Email="serban.ionut.marian@gmail.com",
+                Password="test..."
+            });
+
+            //var service = scope.Resolve<IDataGeneratorService>();
+            //service.AddLeagesToAllCountries();
         }
 
         private static void RunUsingIoc(Action<ILifetimeScope> action)

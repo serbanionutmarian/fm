@@ -81,7 +81,7 @@ namespace DataService.Services
             }
             country.CurrentNrOfLeages += country.NrOfLeagesToAdd;
             country.NrOfLeagesToAdd = 0;
-            _unitOfWork.Commit();
+            _unitOfWork.SaveChanges();
         }
 
         private List<DataModel.Tables.Series> AddSeriesToCountry(DataModel.Tables.LeagesConfiguration configuration, DataModel.Tables.Series parentSeries, int countryId)

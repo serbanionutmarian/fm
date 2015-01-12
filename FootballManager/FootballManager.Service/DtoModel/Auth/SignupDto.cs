@@ -21,8 +21,5 @@ namespace DtoModel.Auth
 
         [DataMember]
         public string Email { get; set; }
-
-        [DataMember]
-        public int? TeamId { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DtoModel.Auth;
+using System.Activities.Statements;
 
 namespace DataService.Services
 {
@@ -31,19 +32,25 @@ namespace DataService.Services
                 // romania
                 input.CountryId = 1;
             }
-
+            // TO DO!! (transaction must be added)
+            var team = _teamRepository.GetRandomBoot(input.CountryId);
+            if (team == null)
+            {
+                throw new Exception("There is no team to take in this country!! Please select another country or wait to the end of the month!!");
+            }
+            team.IsBoot = false;
             _userRepository.Add(new DataModel.Tables.User()
             {
                 DisplayName = input.DisplayName,
                 Email = input.Email,
                 Password = input.Password,
                 CountryId = input.CountryId,
-                TeamId = _teamRepository.GetBestBootId(input.CountryId),
+                Team = team,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             });
 
-            _unitOfWork.Commit();
+            _unitOfWork.SaveChanges();
         }
     }
 }
