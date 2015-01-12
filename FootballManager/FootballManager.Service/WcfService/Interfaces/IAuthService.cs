@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-namespace WcfService
+namespace WcfService.Interfaces
 {
     [ServiceContract]
     public interface IAuthService

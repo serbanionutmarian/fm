@@ -109,6 +109,7 @@ namespace DataService.Services
 
         private void AddTeamBoot(DataModel.Tables.Series series)
         {
+            // TO DO!! (generate team name)
             _teamRepository.Add(new DataModel.Tables.Team()
             {
                 Name = "team " + Guid.NewGuid(),

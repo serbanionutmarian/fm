@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IClassificationService.cs" />
     <Compile Include="Interfaces\ICountryService.cs" />
     <Compile Include="Interfaces\IDataGeneratorService.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\ClassificationService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="EntityService.cs" />
     <Compile Include="IEntityService.cs" />

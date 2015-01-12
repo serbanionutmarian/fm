@@ -5,8 +5,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WcfService.Interfaces;
 
-namespace WcfService
+namespace WcfService.Services
 {
     public class AuthService : IAuthService
     {

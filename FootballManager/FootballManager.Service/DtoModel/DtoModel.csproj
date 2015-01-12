@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auth\SignupDto.cs" />
+    <Compile Include="Classification.cs" />
+    <Compile Include="Player\PlayerAttribute.cs" />
+    <Compile Include="Player\PlayerPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
