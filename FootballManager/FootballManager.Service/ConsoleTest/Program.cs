@@ -12,7 +12,7 @@ using DataService.Interfaces;
 using AutofacModules.Modules;
 using System.Data.Entity;
 using DataModel;
-using DtoModel.Auth;
+using DataModel.Auth;
 
 namespace ConsoleTest
 {
