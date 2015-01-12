@@ -11,6 +11,11 @@ namespace DataModel.Tables
     [Table("Teams")]
     public class Team : Entity<int>
     {
+        public Team()
+        {
+            Players = new List<Player>();
+        }
+
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
@@ -22,5 +27,7 @@ namespace DataModel.Tables
 
         [Required]
         public bool IsBoot { get; set; }
+
+        public virtual ICollection<Player> Players { get; set; }
     }
 }
