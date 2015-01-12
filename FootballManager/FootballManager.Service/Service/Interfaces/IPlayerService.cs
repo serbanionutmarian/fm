@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataService.Interfaces
 {
-    public interface IClassificationService
+    public interface IPlayerService
     {
-        List<Classification> GetAll<T>();
+        List<Classification> GetPlayerAttributes();
     }
 }

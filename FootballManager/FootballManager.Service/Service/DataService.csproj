@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\IClassificationService.cs" />
     <Compile Include="Interfaces\ICountryService.cs" />
     <Compile Include="Interfaces\IDataGeneratorService.cs" />
+    <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ClassificationService.cs" />
     <Compile Include="Services\CountryService.cs" />
@@ -51,12 +52,9 @@
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataGeneratorService.cs" />
+    <Compile Include="Services\PlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DtoModel\DtoModel.csproj">
-      <Project>{323c2f95-86e0-40f2-8087-9e18e3e434d8}</Project>
-      <Name>DtoModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\DataModel.csproj">
       <Project>{8d93c360-d06c-4af9-906e-928df1710566}</Project>
       <Name>DataModel</Name>
