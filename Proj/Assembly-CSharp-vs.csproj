@@ -51,6 +51,7 @@
      <Compile Include="Assets\DataGenerator.cs" />
      <Compile Include="Assets\GUIProxyI.cs" />
      <Compile Include="Assets\GameDatabase.cs" />
+     <Compile Include="Assets\GameJumpScript.cs" />
      <Compile Include="Assets\GameplayCore.cs" />
      <Compile Include="Assets\MenuManager.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_Login.cs" />
