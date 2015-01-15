@@ -15,10 +15,6 @@ namespace Repository
         /// <returns>The number of objects in an Added, Modified, or Deleted state</returns>
         int SaveChanges();
 
-        void BeginTransaction();
-
-        void Commit();
-
-        void Rollback();
+        void AllowMultipleActiveResultSets();
     }
 }

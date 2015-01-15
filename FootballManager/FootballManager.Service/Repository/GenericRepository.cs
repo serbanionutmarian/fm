@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace Repository
         {
             _entities = context;
             _dbset = context.Set<T>();
+           
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -27,7 +30,7 @@ namespace Repository
 
         public IEnumerable<T> FindBy(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            IEnumerable<T> query = _dbset.Where(predicate).AsEnumerable(); 
+            IEnumerable<T> query = _dbset.Where(predicate).AsEnumerable();
             return query;
         }
 

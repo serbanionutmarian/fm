@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    public interface ITeamRepository : IGenericRepository<Team>
+    public interface IMatchRepository : IGenericRepository<Match>
     {
-        Team GetRandomBoot(int countryId);
-
-        IEnumerable<Team> GetAllBySeriesId(int seriesId);
+        void DeleteAll();
     }
 }

@@ -12,16 +12,19 @@ namespace DataModel.Tables
     public class PlayerAttributeValue : BaseEntity
     {
         [Required]
+        [Key, Column(Order = 0)]
         public int PlayerId { get; set; }
+
+        [Required]
+        [Key, Column(Order = 1)]
+        //to do!! must be changed to enum(PlayerAttrivbute)
+        public int AttributeId { get; set; }
 
         [ForeignKey("PlayerId")]
         public virtual Player Player { get; set; }
         
-        [Required]
-        //to do!! urgent!!
-        public int AttributeId { get; set; }
 
         [Required]
-        public decimal Value { get; set; }
+        public int Value { get; set; }
     }
 }

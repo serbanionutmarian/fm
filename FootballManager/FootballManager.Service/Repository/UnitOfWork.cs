@@ -17,8 +17,6 @@ namespace Repository
         /// </summary>
         private DbContext _dbContext;
 
-        private DbContextTransaction _transaction;
-
         /// <summary>
         /// Initializes a new instance of the UnitOfWork class.
         /// </summary>
@@ -27,26 +25,11 @@ namespace Repository
         {
             _dbContext = context;
         }
-        public void BeginTransaction()
+
+        public void AllowMultipleActiveResultSets()
         {
-            _transaction = _dbContext.Database.BeginTransaction();
-        }
-        public void Commit()
-        {
-            if (_transaction == null)
-            {
-                return;
-            }
-            // Save changes with the default options
-            _transaction.Commit();
-        }
-        public void Rollback()
-        {
-            if (_transaction == null)
-            {
-                return;
-            }
-            _transaction.Rollback();
+            // to do (must investigate) ("there is already an open datareader associated with this command which must be closed first. ");
+            _dbContext.Database.Connection.ConnectionString = _dbContext.Database.Connection.ConnectionString + ";MultipleActiveResultSets=true;";
         }
         /// <summary>
         /// Saves all pending changes
@@ -55,10 +38,7 @@ namespace Repository
         public int SaveChanges()
         {
             // Save changes with the default options
-            var result = _dbContext.SaveChanges();
-            Commit();
-
-            return result;
+            return _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -82,11 +62,6 @@ namespace Repository
                 {
                     _dbContext.Dispose();
                     _dbContext = null;
-                }
-                if (_transaction != null)
-                {
-                    _transaction.Dispose();
-                    _transaction = null;
                 }
             }
         }

@@ -24,5 +24,11 @@ namespace Repository.Repositories
             parameters.Add(new SqlParameter("countryId", countryId));
             return _entities.Database.SqlQuery<Team>("getRandomBoot @countryId", parameters.ToArray()).SingleOrDefault();
         }
+
+
+        public IEnumerable<Team> GetAllBySeriesId(int seriesId)
+        {
+            return FindBy(team => team.SeriesId == seriesId);
+        }
     }
 }

@@ -31,7 +31,30 @@ namespace DataModel.Tables
 
         public virtual ICollection<PlayerAttributeValue> PlayersAttributesValues { get; set; }
 
-        public void SetAttribute(PlayerAttribute playerAttribute, decimal value) { 
+        // to do!!(Must be refactored,performance issues)
+        public void SetAttribute(PlayerAttribute playerAttribute, int value)
+        {
+            var playerAttributeValue = GetPlayerAttribute(playerAttribute);
+            playerAttributeValue.Value = value;
         }
+        public PlayerAttributeValue GetPlayerAttribute(PlayerAttribute playerAttribute)
+        {
+            var playerAttributeValue = PlayersAttributesValues.SingleOrDefault(pav => pav.AttributeId == (int)playerAttribute);
+            if (playerAttributeValue == null)
+            {
+                playerAttributeValue = new PlayerAttributeValue()
+                {
+                    AttributeId = (int)playerAttribute
+                };
+                PlayersAttributesValues.Add(playerAttributeValue);
+            }
+            return playerAttributeValue;
+        }
+        public int GetAttribute(PlayerAttribute playerAttribute)
+        {
+            return GetPlayerAttribute(playerAttribute).Value;
+        }
+
+
     }
 }

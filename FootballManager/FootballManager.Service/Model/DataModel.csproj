@@ -54,9 +54,12 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Player\PlayerPosition.cs" />
     <Compile Include="Player\PlayerAttribute.cs" />
+    <Compile Include="Schedule\MatchType.cs" />
+    <Compile Include="Schedule\Round.cs" />
     <Compile Include="Tables\Country.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\LeagesConfiguration.cs" />
+    <Compile Include="Tables\Match.cs" />
     <Compile Include="Tables\Player.cs" />
     <Compile Include="Tables\PlayerAttributeValue.cs" />
     <Compile Include="Tables\Series.cs" />
