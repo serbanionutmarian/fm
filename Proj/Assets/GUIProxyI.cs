@@ -54,6 +54,15 @@ namespace GUI
 			MenuPage_NewUser.OnNewUserButtonPressed ();
 		}
 		//-------------------------------
+
+
+		//-------------------------------
+		// MenuPage_MainMenu
+		//-------------------------------
+		public void OnTeamManagementClick()
+		{
+			MenuPage_MainMenu.OnTeamManagementPressed ();
+		}
 	}
 }
 

@@ -9,6 +9,7 @@ namespace GUI
 		PAGE_LOGIN,
 		PAGE_NEW_USER,
 		PAGE_MAIN_MENU,
+		PAGE_TEAMMANAGEMENT,
 		PAGE_NUM,
 	}
 
@@ -21,7 +22,8 @@ namespace GUI
 		{
 			new MenuPage_Login(),
 			new MenuPage_NewUser(),
-			new MenuPage_MainMenu()
+			new MenuPage_MainMenu(),
+			new MenuPage_TeamManagement()
 		};
 
 		// From ID to name of the scene. Each scene is a menu page
@@ -29,7 +31,8 @@ namespace GUI
 		{
 			"page_login",
 			"page_newuser",
-			"page_mainmenu"
+			"page_mainmenu",
+			"page_teammanagement"
 		};
 
 		public string GetSceneNameForPage(MenuPages menuPage)

@@ -1,8 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GUIProxyI.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameDatabase.cs">
     <Files>
-      <File FileName="Assets\GUIProxyI.cs" Line="12" Column="36" />
+      <File FileName="Assets\GUIProxyI.cs" Line="14" Column="1" />
+      <File FileName="Assets\Utils.cs" Line="11" Column="4" />
+      <File FileName="Assets\MenuPages\MenuPage_NewUser.cs" Line="47" Column="1" />
+      <File FileName="Assets\MenuPages\MenuPage_MainMenu.cs" Line="36" Column="74" />
+      <File FileName="Assets\MenuManager.cs" Line="49" Column="4" />
+      <File FileName="Assets\MenuPages\MenuPage_Teammanagement.cs" Line="35" Column="1" />
+      <File FileName="Assets\GameJumpScript.cs" Line="17" Column="4" />
+      <File FileName="Assets\GameDatabase.cs" Line="32" Column="6" />
+      <File FileName="Assets\ClubsAndPlayersData.cs" Line="338" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

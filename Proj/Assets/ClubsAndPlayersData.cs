@@ -326,14 +326,16 @@ namespace Gameplay
 
 	public class LocalUserInfo
 	{
-		public String mName;
+		public String 	mName;
 		public DateTime mBirthDate;
-		public int mClubId;
+		public int    	mClubId;
+		public String 	mClubName;
 		// TODO: add other info: contract, rating etc
 		
 		public LocalUserInfo()
 		{
-			mName = "not set";
+			mName = "Name not set";
+			mClubName = "club not set";
 			mBirthDate = DateTime.MinValue;
 			mClubId = 0;
 		}

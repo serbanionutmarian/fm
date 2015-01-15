@@ -16,8 +16,8 @@ namespace Gameplay
 
 		public PlayersPool mPlayersPool;	
 
-		public CompetitionEngine	mCompetitionEngine;	// TODO Online: check class def
-		LocalUserInfo				mLocalUserINfo;		// TODO Online: this must be taken from server not from a local file in an online game
+		public CompetitionEngine	mCompetitionEngine;			// TODO Online: check class def
+		public LocalUserInfo		mLocalUserINfo;				// TODO Online: this must be taken from server not from a local file in an online game
 
 		public System.Random	mRandomGenerator = new System.Random();
 
@@ -29,7 +29,7 @@ namespace Gameplay
 			mClubs = null;
 			mPlayersPool = new PlayersPool ();
 			mLocalUserINfo = new LocalUserInfo ();
-			mCompetitionEngine = new CompetitionEngine ();
+			//mCompetitionEngine = new CompetitionEngine ();
 		}
 
 		private static readonly GameDatabase instance = new GameDatabase();

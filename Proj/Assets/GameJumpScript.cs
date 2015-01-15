@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 namespace GUI
@@ -10,13 +11,23 @@ public class GameJumpScript : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
+		// Populate username, team name and set correctly the visibility of button 'Next'
+		GameObject userNameGO 		= GameObject.Find ("Label_Username");
+		Text userNameInput 			= userNameGO.GetComponentInChildren<Text> ();
+
+		
+		userNameInput.text 			= Gameplay.GameDatabase.Instance.mLocalUserINfo.mName + " " + 
+									  Gameplay.GameDatabase.Instance.mLocalUserINfo.mClubName;
+		
+		GameObject buttonNextGO		= GameObject.Find ("Button_Next");
+		Button  buttonNext			= buttonNextGO.GetComponentInChildren<Button> ();
+		buttonNext.enabled 			= Gameplay.GameDatabase.Instance.mIsOnlineMatch == false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		
 	}
 
 	public void OnJumpTomainMenu()
