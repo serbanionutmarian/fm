@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GUI
+namespace FMGUI
 {
 	public enum MenuPages
 	{
@@ -18,7 +18,7 @@ namespace GUI
 		static private readonly MenuManager mInstance = new MenuManager();
 
 		// From ID to instance of menu page
-		static private MenuPage[] mMenuPages = new MenuPage[(int)MenuPages.PAGE_NUM]
+		public static MenuPage[] mMenuPages = new MenuPage[(int)MenuPages.PAGE_NUM]
 		{
 			new MenuPage_Login(),
 			new MenuPage_NewUser(),
@@ -32,7 +32,7 @@ namespace GUI
 			"page_login",
 			"page_newuser",
 			"page_mainmenu",
-			"page_teammanagement"
+			"page_teammanagement2"
 		};
 
 		public string GetSceneNameForPage(MenuPages menuPage)

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-namespace GUI
+namespace FMGUI
 {
 
 public class GameJumpScript : MonoBehaviour 
@@ -50,4 +50,4 @@ public class GameJumpScript : MonoBehaviour
 
 
 
-} // namespace GUI
+} // namespace FMGUI

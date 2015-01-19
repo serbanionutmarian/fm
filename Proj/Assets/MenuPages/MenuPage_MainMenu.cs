@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace GUI
+namespace FMGUI
 {
 	public class MenuPage_MainMenu : MenuPage
 	{

@@ -1,17 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 	
-namespace GUI
+namespace FMGUI
 {
 	public class GUIProxyI : MonoBehaviour 
 	{
+		static bool hackActivated = false;
+
 		// Use this for initialization
 		void Start () 
 		{
+			MenuPages firstMenuPage = MenuPages.PAGE_LOGIN;
+
 			// Terrible hack !!!
 			if (Application.loadedLevel == 0)
 			{
-				MenuManager.Instance.OpenNewPage(MenuPages.PAGE_LOGIN, true);
+				MenuManager.Instance.OpenNewPage(firstMenuPage, true);
+			}
+			else
+			{
+				if (hackActivated == false)
+				{
+					hackActivated = true;
+					firstMenuPage = MenuPages.PAGE_TEAMMANAGEMENT;	// Uncomment this to set your homepage fast
+					MenuManager.Instance.OpenNewPage(firstMenuPage, true);
+				}
 			}
 		}
 		

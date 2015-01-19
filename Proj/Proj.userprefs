@@ -1,22 +1,26 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameDatabase.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DropText.cs">
     <Files>
-      <File FileName="Assets\GUIProxyI.cs" Line="14" Column="1" />
-      <File FileName="Assets\Utils.cs" Line="11" Column="4" />
-      <File FileName="Assets\MenuPages\MenuPage_NewUser.cs" Line="47" Column="1" />
-      <File FileName="Assets\MenuPages\MenuPage_MainMenu.cs" Line="36" Column="74" />
-      <File FileName="Assets\MenuManager.cs" Line="49" Column="4" />
-      <File FileName="Assets\MenuPages\MenuPage_Teammanagement.cs" Line="35" Column="1" />
-      <File FileName="Assets\GameJumpScript.cs" Line="17" Column="4" />
-      <File FileName="Assets\GameDatabase.cs" Line="32" Column="6" />
-      <File FileName="Assets\ClubsAndPlayersData.cs" Line="338" Column="31" />
+      <File FileName="Assets\MenuPages\MenuPage_Teammanagement.cs" Line="31" Column="1" />
+      <File FileName="Assets\DropText.cs" Line="25" Column="26" />
+      <File FileName="Assets\GUIProxyI.cs" Line="14" Column="4" />
+      <File FileName="Assets\MenuManager.cs" Line="67" Column="1" />
+      <File FileName="Assets\Tactics.cs" Line="71" Column="37" />
+      <File FileName="Assets\GameJumpScript.cs" Line="8" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Manager\fm\Proj\Assets\GUIProxyI.cs" line="14" />
-      <Breakpoint file="C:\Manager\fm\Proj\Assets\GUIProxyI.cs" line="9" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\DropText.cs" line="111" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\MenuPages\MenuPage_Teammanagement.cs" line="59" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\MenuPages\MenuPage_Teammanagement.cs" line="32" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\MenuPages\MenuPage_Teammanagement.cs" line="24" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\MenuManager.cs" line="67" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\GUIProxyI.cs" line="25" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\GUIProxyI.cs" line="22" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\GUIProxyI.cs" line="8" />
+      <Breakpoint file="C:\Manager\fm\Proj\Assets\DropText.cs" line="28" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

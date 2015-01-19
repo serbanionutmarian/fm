@@ -15,7 +15,7 @@ namespace Gameplay
 		{
 			int numTeams = clubs.Length;
 
-			if (numTeams %2 != 0)
+			if (numTeams % 2 != 0)
 			{
 				System.Diagnostics.Debug.Assert(false);
 				return null;
@@ -200,6 +200,7 @@ namespace Gameplay
 					int playerId = club.mTeam.mAllPlayers[playerIdxToFill];
 					Player player = GameDatabase.Instance.mPlayersPool.GetPlayer(playerId);
 					DataGenerator.GenerateDataForPlayer(division, player, (FieldPos)fieldIter);
+					player.mClubId = club.mClubId;
 					playerIdxToFill++;
 				}
 			}
@@ -212,21 +213,21 @@ namespace Gameplay
 		{
 			// Name and birthdate
 			//-------------------
-			player.mName = GenerateRandomManagerOrPlayerName ();		
-			DateTime currentDate = GameDatabase.Instance.mCurrentTime;
+			player.mName 			= GenerateRandomManagerOrPlayerName ();		
+			DateTime currentDate 	= GameDatabase.Instance.mCurrentTime;
 
-			int age = GameDatabase.Instance.mRandomGenerator.Next (18, 30);
-			int month = GameDatabase.Instance.mRandomGenerator.Next (1, 12);
-			int day  = GameDatabase.Instance.mRandomGenerator.Next (1, 28);
-			player.mBornDate = new DateTime (currentDate.Year, currentDate.Month, currentDate.Day);
+			int age 				= GameDatabase.Instance.mRandomGenerator.Next (18, 30);
+			int month 				= GameDatabase.Instance.mRandomGenerator.Next (1, 12);
+			int day  				= GameDatabase.Instance.mRandomGenerator.Next (1, 28);
+			player.mBornDate 		= new DateTime (currentDate.Year, currentDate.Month, currentDate.Day);
 
-			DateTime tempDate = new DateTime(age, month, day);
+			DateTime tempDate 		= new DateTime(age, month, day);
 			player.mBornDate.Subtract (tempDate);
 			//-------------------
 
 			// Position, sides 
-			player.mFieldPos 		  = fieldPos;
-			player.mFieldSide     	  = (FieldSide)    GameDatabase.Instance.mRandomGenerator.Next (0, (int)FieldSide.FIELD_SIDE_NUM - 1);
+			player.mFieldPos 		= fieldPos;
+			player.mFieldSide     	= (FieldSide)    GameDatabase.Instance.mRandomGenerator.Next (0, (int)FieldSide.FIELD_SIDE_NUM - 1);
 
 			if (player.mFieldPos == FieldPos.FIELD_POS_MID)
 			{

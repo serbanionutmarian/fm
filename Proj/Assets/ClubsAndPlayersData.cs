@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Gameplay
 {
@@ -205,8 +207,9 @@ namespace Gameplay
 		FIELD_SIDE_LRC,
 		FIELD_SIDE_NUM,
 	}
-	
-	public class Player
+
+
+	public class Player //: ISerializable
 	{
 		public PlayerAttributes mAttributes;		
 		public string 			mName;
@@ -216,6 +219,7 @@ namespace Gameplay
 		public FieldSide		mFieldSide;
 		
 		public int 				mPlayerId;	// Don't modify this. This will be modified on creation of a new player
+		public int 				mClubId;
 		public bool 			mIsValid;	// Because we have pre-allocated chuncks of players, we need a way to see if a player is active or not.
 
 
@@ -241,22 +245,9 @@ namespace Gameplay
 	public class TeamController
 	{
 		public List<int> mAllPlayers;	// All the players in this team
-		
-		// Players which are either in first 11 or substitutions
-		static public int NumPlayersOnPitch	= 11;
-		static public int NumPlayersOnBench	= 7;
-		
-		public Player[] mPlayersOnPitch;
-		public Player[] mPlayersOnBench;
-		
+
 		public TeamController()
 		{
-			mPlayersOnPitch = new Player[NumPlayersOnPitch];
-			mPlayersOnBench = new Player[NumPlayersOnBench];	
-			
-			mPlayersOnPitch.Initialize ();
-			mPlayersOnBench.Initialize ();
-
 			mAllPlayers.Capacity = 30;
 		}
 
@@ -267,8 +258,6 @@ namespace Gameplay
 
 		public void Reset()
 		{
-			mPlayersOnBench.Initialize ();
-			mPlayersOnPitch.Initialize ();
 			mAllPlayers.Clear ();
 		}
 

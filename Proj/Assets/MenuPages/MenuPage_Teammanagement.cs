@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace GUI
+namespace FMGUI
 {
 	public class MenuPage_TeamManagement : MenuPage
 	{
+		int mFormationIdWaiting = -1;
+		bool mIsPageReady 		= false;
+
 		public override void OnOpened ()
 		{
 			OnEnter ();
@@ -18,17 +21,42 @@ namespace GUI
 		
 		public override void OnRequested()
 		{
+			mIsPageReady = false;
 			Application.LoadLevel (MenuManager.Instance.GetSceneNameForPage(MenuPages.PAGE_TEAMMANAGEMENT));
 		}
 		
 		public override void OnEnter()
 		{
-			
+			mIsPageReady = true;
+
+			if (mFormationIdWaiting != -1)
+			{
+				OnFormationChanged(mFormationIdWaiting);
+				mFormationIdWaiting = -1;
+			}
 		}
 		
 		public override void OnHide()
 		{
 			
+		}
+
+		public void OnFormationChangedMsg(int formationId)
+		{
+			if (mIsPageReady)
+			{
+				OnFormationChanged(formationId);
+			}
+			else
+			{
+				mFormationIdWaiting = formationId;
+			}
+		}
+
+		public void OnFormationChanged(int formationId)
+		{
+			// TODO
+			Debug.Log ("OnFormationChanged " + formationId);
 		}
 	}
 }
