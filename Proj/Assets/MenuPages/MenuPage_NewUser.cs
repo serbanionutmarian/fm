@@ -53,6 +53,9 @@ namespace FMGUI
 			
 			// TODO: Call here login
 			Debug.Log ("New user: " + "user: " + userNameInput.text + " pass: " + passwordInput.text + " mail: " + mailInput.text);
+			CommonMessages.UserConnectedDataMsg userTeam = new CommonMessages.UserConnectedDataMsg ();
+			Gameplay.GameDatabase.Instance.CreateNewOnlineGame (userTeam);
+
 
 			OnCreateUserSuccess ();
 		}

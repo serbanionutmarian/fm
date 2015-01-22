@@ -7,10 +7,10 @@ namespace Gameplay
 public enum FieldSideTactic
 {
 	FIELD_SIDET_L,		// Left
-	FIELD_SIDET_R,		// Right
+	FIELD_SIDET_CL,		// Central-right
 	FIELD_SIDET_C,		// Central
 	FIELD_SIDET_CR, 	// Central-left
-	FIELD_SIDET_CL,		// Central-right
+	FIELD_SIDET_R,		// Right
 	FIELD_SIDET_NUM,
 }
 
@@ -36,6 +36,31 @@ public enum FieldLineTactic
 	FIELD_LINE_NUM
 }
 
+public enum AggressivityType
+{
+	AGG_NORMAL,
+	AGG_VERY
+}
+
+public enum ShotsType
+{
+	SHOTS_MIXED,
+	SHOTS_SHORT,
+	SHOTS_LONG,
+}
+
+public enum MarkingType
+{
+	MARKING_MANTOMAN,
+	MARKING_ZONAL,
+}
+
+public enum OffsideTrapType
+{
+	OFFSIDETRAP_YES,
+	OFFSIDETRAP_NO,
+}
+
 public class TacticPosDescription
 {
 	public FieldSideTactic	mSide;
@@ -56,7 +81,18 @@ public enum TacticType
 	TACTIC_4312,
 	TACTIC_NUM,
 }
+
+public class TeamInstructions
+{
+	public ShotsType mShotsType 				= ShotsType.SHOTS_MIXED;
+	public MarkingType mMarkingType 			= MarkingType.MARKING_MANTOMAN;
+	public AggressivityType mAggresivityType 	= AggressivityType.AGG_NORMAL;
+	public OffsideTrapType mOffsideTrapType 	= OffsideTrapType.OFFSIDETRAP_NO;
 	
+	public float mMentality = 0.5f; // 0-1, 0 means very defensive, 1 means ultra offensive (see the GUI)
+	public float mPressure  = 0.5f; // 0-1, 0 means now pressure to opponent, 1 max
+	public float mTempo     = 0.5f; // Build up speed, 0-1
+}
 
 public class TeamTactics
 {
@@ -70,12 +106,15 @@ public class TeamTactics
 		}
 	}
 
+	public TeamInstructions mTeamInstructions = new TeamInstructions();
+
 	public const int mNumPlayersOnField 	= 11;
 	public const int mNumPlayersOnBench 	= 7;
 	public const int mNumTotalPlayers 		= TeamTactics.mNumPlayersOnField + TeamTactics.mNumPlayersOnBench;
 	public const int NO_PLAYER_SELECTED 	= -1;
 
 	public int[] mSelectedMatchPlayers; // Check mTacticDesc[TACTIC] to see the positions
+	public int   mCurrentTacticIndex 		= -1;
 
 	public static string[] mTacticName = new string[] { "4-4-2", "4-3-1-2" };
 	public static TacticPosDescription[][] mTacticDesc = new TacticPosDescription[(int)TacticType.TACTIC_NUM][]
@@ -109,12 +148,12 @@ public class TeamTactics
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_CL, "DC"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_CR, "DC"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_R, 	"DR"),
-			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_CL, "MC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_L, 	"ML"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M,	FieldSideTactic.FIELD_SIDET_C, 	"MC"),
-			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_CR, "MC"),
-			new TacticPosDescription(FieldLineTactic.FIELD_LINE_AM,	FieldSideTactic.FIELD_SIDET_C,  "AM"),
-			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_C, 	"ST"),
-			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_C, 	"ST"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_R, 	"MR"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_AM,	FieldSideTactic.FIELD_SIDET_C,  "AMC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_CL,	"ST"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_CR,	"ST"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S1, FieldSideTactic.FIELD_SIDET_C, 	"S1"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S2, FieldSideTactic.FIELD_SIDET_C, 	"S2"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S3, FieldSideTactic.FIELD_SIDET_C, 	"S3"),

@@ -2,7 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DropText : MonoBehaviour 
+namespace FMGUI
+{
+
+public class TacticsPageControls : MonoBehaviour 
 {
 	GUIContent[] comboBoxList;
 	private ComboBox comboBoxControl;// = new ComboBox();
@@ -24,11 +27,7 @@ public class DropText : MonoBehaviour
 	{
 		65, 175, 274, 366, 474, 572,
 	};
-
-	// Center of the tactis image...width/2, height/2
-	private static Vector3 mTacticsImageCenter = new Vector3(355, 227, 0);
 	//-----------
-
 
 	int mCurrentListSelectedIndex = -1;	
 	private void Start()
@@ -40,7 +39,7 @@ public class DropText : MonoBehaviour
 	private void CreatePitchPos()
 	{
 		Object posPrefab = Resources.Load("Button_Pos");
-		Debug.Log ("Pref inst: " + posPrefab);
+		//Debug.Log ("Pref inst: " + posPrefab);
 
 		GameObject canvasTactics = GameObject.Find ("Image_Tactics");
 
@@ -99,12 +98,14 @@ public class DropText : MonoBehaviour
 		{
 
 			Gameplay.TacticPosDescription posDesc = Gameplay.TeamTactics.mTacticDesc[formationId][i];
-			float X = DropText.mPosOffsets_Lines[(int)posDesc.mLine]; //- mTacticsImageCenter.x;
-			float Y = DropText.mPosOffsets_Sides[(int)posDesc.mSide] + 115;
+			float X = TacticsPageControls.mPosOffsets_Lines[(int)posDesc.mLine];
+			float Y = -TacticsPageControls.mPosOffsets_Sides[(int)posDesc.mSide];
 
-			mFormPitchPos[i].transform.position = new Vector3(X, Y, 0.0f);
-			Text textPos = mFormPitchPos[i].GetComponentInChildren<Text> ();
-			textPos.text = posDesc.mString;
+			//Debug.Log ("Pos for " + i + "-" + posDesc.mString + " " + X + "," + Y);
+
+			mFormPitchPos[i].transform.localPosition = new Vector3(X, Y, 0.0f);
+			Text[] texts = mFormPitchPos[i].GetComponentsInChildren<Text>();
+			texts[0].text = posDesc.mString;						
 		}
 	}
 	
@@ -113,104 +114,5 @@ public class DropText : MonoBehaviour
 		comboBoxControl.Show();
 	}
 }
-
-public class ComboBox
-{
-	private static bool forceToUnShow = false; 
-	private static int useControlID = -1;
-	private bool isClickedComboButton = false;
-	private int selectedItemIndex = 0;
 	
-	private Rect rect;
-	private GUIContent buttonContent;
-	private GUIContent[] listContent;
-	private string buttonStyle;
-	private string boxStyle;
-	private GUIStyle listStyle;
-	
-	public ComboBox( Rect rect, GUIContent buttonContent, GUIContent[] listContent, GUIStyle listStyle ){
-		this.rect = rect;
-		this.buttonContent = buttonContent;
-		this.listContent = listContent;
-		this.buttonStyle = "button";
-		this.boxStyle = "box";
-		this.listStyle = listStyle;
-	}
-	
-	public ComboBox(Rect rect, GUIContent buttonContent, GUIContent[] listContent, string buttonStyle, string boxStyle, GUIStyle listStyle){
-		this.rect = rect;
-		this.buttonContent = buttonContent;
-		this.listContent = listContent;
-		this.buttonStyle = buttonStyle;
-		this.boxStyle = boxStyle;
-		this.listStyle = listStyle;
-	}
-	
-	public int Show()
-	{
-		if( forceToUnShow )
-		{
-			forceToUnShow = false;
-			isClickedComboButton = false;
-		}
-		
-		bool done = false;
-		int controlID = GUIUtility.GetControlID( FocusType.Passive );       
-		
-		switch( Event.current.GetTypeForControl(controlID) )
-		{
-		case EventType.mouseUp:
-		{
-			if( isClickedComboButton )
-			{
-				done = true;
-			}
-		}
-			break;
-		}       
-
-		if( GUI.Button( rect, buttonContent, buttonStyle ) )
-		{
-			if( useControlID == -1 )
-			{
-				useControlID = controlID;
-				isClickedComboButton = false;
-			}
-			
-			if( useControlID != controlID )
-			{
-				forceToUnShow = true;
-				useControlID = controlID;
-			}
-			isClickedComboButton = true;
-		}
-		
-		if( isClickedComboButton )
-		{
-			Rect listRect = new Rect( rect.x, rect.y + listStyle.CalcHeight(listContent[0], 1.0f),
-			                         rect.width, listStyle.CalcHeight(listContent[0], 1.0f) * listContent.Length );
-			
-			GUI.Box( listRect, "", boxStyle );
-			int newSelectedItemIndex = GUI.SelectionGrid( listRect, selectedItemIndex, listContent, 1, listStyle );
-			if( newSelectedItemIndex != selectedItemIndex )
-			{
-				selectedItemIndex = newSelectedItemIndex;
-				buttonContent = listContent[selectedItemIndex];
-			}
-		}
-		
-		if( done )
-			isClickedComboButton = false;
-		
-		return selectedItemIndex;
-	}
-	
-	public int SelectedItemIndex{
-		get{
-			return selectedItemIndex;
-		}
-		set{
-			selectedItemIndex = value;
-		}
-	}
-}
+} // namespace FMGUI

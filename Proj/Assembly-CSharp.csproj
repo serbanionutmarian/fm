@@ -46,10 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ClubsAndPlayersData.cs" />
+     <Compile Include="Assets\ComboBox.cs" />
+     <Compile Include="Assets\CommonMessages.cs" />
      <Compile Include="Assets\CompetitionEngine.cs" />
      <Compile Include="Assets\DataGenerator.cs" />
-     <Compile Include="Assets\DropText.cs" />
      <Compile Include="Assets\GUIProxyI.cs" />
      <Compile Include="Assets\GameDatabase.cs" />
      <Compile Include="Assets\GameJumpScript.cs" />
@@ -58,8 +58,11 @@
      <Compile Include="Assets\MenuPages\MenuPage_Login.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_MainMenu.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_NewUser.cs" />
+     <Compile Include="Assets\MenuPages\MenuPage_TeamInstructions.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_Teammanagement.cs" />
+     <Compile Include="Assets\PlayerAndClub.cs" />
      <Compile Include="Assets\Tactics.cs" />
+     <Compile Include="Assets\TacticsPageControls.cs" />
      <Compile Include="Assets\Utils.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>

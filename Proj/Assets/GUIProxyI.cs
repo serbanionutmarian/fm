@@ -21,8 +21,15 @@ namespace FMGUI
 			{
 				if (hackActivated == false)
 				{
+					// Need this to load a team for user 
+					//----
+					// TODO: populate it from a file or something....
+					CommonMessages.UserConnectedDataMsg userTeam = new CommonMessages.UserConnectedDataMsg ();
+					Gameplay.GameDatabase.Instance.CreateNewOnlineGame (userTeam);
+					//-----
+
 					hackActivated = true;
-					firstMenuPage = MenuPages.PAGE_TEAMMANAGEMENT;	// Uncomment this to set your homepage fast
+					firstMenuPage = MenuPages.PAGE_TEAMINSTRUCTIONS;	// Uncomment this to set your homepage fast
 					MenuManager.Instance.OpenNewPage(firstMenuPage, true);
 				}
 			}

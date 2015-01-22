@@ -1,0 +1,16 @@
+Style of play: Aggressive , Normal
+Build style :Long balls , Short pass, Play wide, Counterattacks
+
+Marking: Zonal, Man to man
+Offside trap: Yes, No
+Shots: Long, Short, Mixed
+
+
+Mentality: Ultra defense - Defence - Normal - Attacking - Ultra attacking
+Tempo:  Play around back - Slow build-up  - Standard - High-speed passing - One touch-soccer
+Pressure: 0 - 100%
+
+
+-> anim for sliders
+-> messages / saves
+-> better GUI , arrange, etc

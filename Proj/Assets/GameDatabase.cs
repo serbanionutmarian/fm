@@ -11,27 +11,36 @@ namespace Gameplay
 	public class GameDatabase 			// TODO Online: in an online game this should be stored totally on server. A part of this will be also stored on client
 	{
 		public DateTime mCurrentTime;	// TODO Online: In an online game this should be server time
-		public bool mIsOnlineMatch;		// TODO Online: true
+		public bool mIsOnlineMatch = true;		// TODO Online: true
 				
+
+		// Clubs and players for Offline and online
+		//##########################################################
+		//--------- Offline case 
 		public Club[] mClubs;			// This contains info about the clubs in the user's league.
 										// TODO Online: how do we keep this updated ? Think that clubs can exchange players between them, or make a bigger stadium.
 										// Also, do we really need all info from all other clubs or just a part ? in this case we can create another class like PartialClubInfo
 
 		public PlayersPool mPlayersPool;	
+		//--------- Online case
+		// These will probably contain at most current user and the user which we are playing against
+		public Hashtable mPlayersPool_Online = new Hashtable();
+		public Hashtable mClubs_Online = new Hashtable();
+		public Hashtable mUsers_Online = new Hashtable();
+		//##########################################################
 
-		public CompetitionEngine	mCompetitionEngine;			// TODO Online: check class def
-		public LocalUserInfo		mLocalUserINfo;				// TODO Online: this must be taken from server not from a local file in an online game
+		public CompetitionEngine					mCompetitionEngine;			// TODO Online: check class def
+		public CommonMessages.UserInfo				mLocalUserInfo;				// TODO Online: this must be taken from server not from a local file in an online game
 
 		public System.Random	mRandomGenerator = new System.Random();
 
 		GameDatabase() 
 		{
 			mCurrentTime = DateTime.Today;
-			mIsOnlineMatch = false;
 
 			mClubs = null;
 			mPlayersPool = new PlayersPool ();
-			mLocalUserINfo = new LocalUserInfo ();
+			mLocalUserInfo = new CommonMessages.UserInfo ();
 			//mCompetitionEngine = new CompetitionEngine ();
 		}
 
@@ -142,14 +151,15 @@ namespace Gameplay
 			return clubIdRand;
 		}
 					                
-		public void SelectClubForLocalUser(string userName, DateTime birthDate, int clubId)	// Both for Online and Offline
+		public void SelectClubForLocalUser(string userName, DateTime birthDate, int clubId, int userId)	// Both for Online and Offline
 		{
-			mLocalUserINfo = new LocalUserInfo ();
+			mLocalUserInfo = new CommonMessages.UserInfo ();
 
 			// TODO Online/Offline: let user send his own start player here
-			mLocalUserINfo.mName = userName;
-			mLocalUserINfo.mClubId = clubId;
-			mLocalUserINfo.mBirthDate = birthDate;
+			mLocalUserInfo.mName = userName;
+			mLocalUserInfo.mClubId = clubId;
+			mLocalUserInfo.mBirthDate = birthDate;
+			mLocalUserInfo.mUserId = userId;
 
 			// TODO Online: add these info on server...
 		}
@@ -162,17 +172,165 @@ namespace Gameplay
 			int clubId = GetRandomClubIdInDivision (CompetitionEngine.mNumDivisions - 1);	// Get a club in the last division
 			mClubs [clubId].mClubName = clubName;
 			mClubs [clubId].mManagerName = userName;
-			SelectClubForLocalUser (userName, birthDate, clubId);
+			SelectClubForLocalUser (userName, birthDate, clubId, 0);
 		}
 
-		public void CreateNewOnlineGame(string userName, DateTime birthDate)
+		public CommonMessages.UserInfo GetLocalUserInfo()
 		{
-			// TODO: the difference from the above is that we only need to call SelectClubForLocalUser 		
-			// Also we need to handle clubName somehow!!! - it will be weird to modify the names of the clubs while in a competition...Maybe we'll apply the requested name at the begging of a new championship.
+			return mLocalUserInfo;
+		}
 
+		public Club GetLocalUserClub()
+		{
+			return GetClub (mLocalUserInfo.mUserId);
+		}
+
+		public Club GetClub(int clubId)
+		{
+			if (mIsOnlineMatch)
+			{
+				if (!mClubs_Online.ContainsKey(clubId))
+				{
+					// Should assert
+					return null;
+				}
+
+				return (Club)mClubs_Online[clubId];
+			}
+			else
+			{
+				// TODO
+				return mClubs[clubId];
+			}
+		}
+
+		public Player GetPlayer(int playerId)
+		{
+			if (mIsOnlineMatch)
+			{
+				if (!mPlayersPool_Online.ContainsKey(playerId))
+				{
+					// Should assert
+					return null;
+				}
+				
+				return (Player)mPlayersPool_Online[playerId];
+			}
+			else
+			{
+				// TODO
+				return mPlayersPool.GetPlayer(playerId);
+			}
+		}
+
+		/// <summary>
+		/// Online functionality
+		/// </summary>
+		/// <param name="userTeam">User team.</param>
+		public void CreateNewOnlineGame(CommonMessages.UserConnectedDataMsg userTeam)
+		{
 			GameDatabase.Instance.mIsOnlineMatch = true;
-			int clubId = GetRandomClubIdInDivision (CompetitionEngine.mNumDivisions - 1);	// Get a club in the last division
-			SelectClubForLocalUser (userName, birthDate, clubId);
+			CommonMessages.UserInfo userInfo = userTeam.mUserInfo;
+			SelectClubForLocalUser (userInfo.mName, userInfo.mBirthDate, userInfo.mClubId, userInfo.mUserId);
+
+			LoadUser (userTeam);
+		}
+
+		public CommonMessages.UserInfo GetUserInfo(int userId)
+		{
+			if (mIsOnlineMatch)
+			{
+				if (!mUsers_Online.ContainsKey(userId))
+				{
+					// Should assert
+					return null;
+				}
+				
+				return (CommonMessages.UserInfo)mUsers_Online[userId];
+			}
+			else
+			{
+				// Should assert - this function is valid only for client
+				return null;
+			}
+		}
+
+		public void LoadUser(CommonMessages.UserConnectedDataMsg userTeam)
+		{
+			if (userTeam == null || userTeam.mUserInfo == null || userTeam.mClubInfo == null)
+			{
+				// Must assert when system will be ready
+				return;
+			}
+
+			if (mUsers_Online.ContainsKey(userTeam.mUserInfo.mUserId))
+			{
+				UnloadUser(userTeam.mUserInfo.mUserId);
+			}
+
+			// Add to  local cache
+			//##################################################################
+			// User info
+			mUsers_Online.Add (userTeam.mUserInfo.mUserId, userTeam.mUserInfo);
+
+			// Create a Club with the info received
+			Club userClub = new Club ();
+			userClub.mClubId = userTeam.mUserInfo.mClubId;
+			userClub.mClubName = userTeam.mUserInfo.mClubName;
+			userClub.mDivisionId = userTeam.mUserInfo.mDivisionId;
+			userClub.mLeagueId = userTeam.mUserInfo.mLeagueId;
+			userClub.mManagerName = userTeam.mUserInfo.mName;
+			userClub.mTactics = userTeam.mClubInfo.mTactics;
+			userClub.mFinances = null;
+			userClub.mStadium = null;
+
+			userClub.mTeam = new TeamController ();
+			foreach (Player pl in userTeam.mClubInfo.mPlayersList)
+			{
+				userClub.mTeam.mAllPlayers.Add(pl.mPlayerId);
+			}
+			mClubs_Online.Add (userTeam.mUserInfo.mClubId, userClub);
+			//----
+
+			// Add all players here
+			foreach (Player pl in userTeam.mClubInfo.mPlayersList)
+			{
+				mPlayersPool_Online.Add(pl.mPlayerId, pl);
+			}
+		}
+
+		void UnloadUser(int userId)
+		{
+			if (mUsers_Online.ContainsKey(userId) == false)
+			{
+				// Should assert after system will be ready
+				return;
+			}
+
+			CommonMessages.UserInfo userInfo = (CommonMessages.UserInfo) mUsers_Online [userId];
+			int clubId = userInfo.mClubId;
+
+			if (!mClubs_Online.ContainsKey(clubId))
+			{
+				// Should assert after system will be ready
+				return ;
+			}
+
+			CommonMessages.ClubInfo clubInfo = (CommonMessages.ClubInfo)mClubs_Online [clubId];
+			foreach (Player pl in clubInfo.mPlayersList)
+			{
+				mPlayersPool_Online.Remove(pl.mPlayerId);
+			}
+
+			mClubs_Online.Remove (clubId);
+			mUsers_Online.Remove (userId);
+		}
+
+		// Before playing against another user team we need to get his info and load this and team locally
+		// This data should be unloaded after the match is played
+		public void OnBeforePlayOnlineGameAgainst(CommonMessages.UserConnectedDataMsg userTeam)
+		{
+			LoadUser (userTeam);
 		}
 		//-------------------------------------------------------------
 	}

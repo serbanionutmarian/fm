@@ -57,6 +57,8 @@ namespace FMGUI
 		{
 			// TODO
 			Debug.Log ("OnFormationChanged " + formationId);
+			Gameplay.Club userClub 					= Gameplay.GameDatabase.Instance.GetLocalUserClub();
+			userClub.mTactics.mCurrentTacticIndex 	= formationId;
 		}
 	}
 }

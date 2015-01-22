@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -16,8 +16,8 @@ public class GameJumpScript : MonoBehaviour
 		Text userNameInput 			= userNameGO.GetComponentInChildren<Text> ();
 
 		
-		userNameInput.text 			= Gameplay.GameDatabase.Instance.mLocalUserINfo.mName + " " + 
-									  Gameplay.GameDatabase.Instance.mLocalUserINfo.mClubName;
+		userNameInput.text 			= Gameplay.GameDatabase.Instance.mLocalUserInfo.mName + " " + 
+									  Gameplay.GameDatabase.Instance.mLocalUserInfo.mClubName;
 		
 		GameObject buttonNextGO		= GameObject.Find ("Button_Next");
 		Button  buttonNext			= buttonNextGO.GetComponentInChildren<Button> ();
@@ -43,6 +43,8 @@ public class GameJumpScript : MonoBehaviour
 
 	public void OnBack()
 	{
+		MenuManager.Instance.GetCurrentPage().OnBack();
+
 		MenuManager.Instance.GoBack ();
 	}
 }

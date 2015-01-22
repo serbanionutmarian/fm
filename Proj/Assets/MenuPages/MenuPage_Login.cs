@@ -48,8 +48,13 @@ namespace FMGUI
 			InputField passwordInput 	= passwordGO.GetComponentInChildren<InputField> ();
 
 			// TODO: Call here login
+			//
 			Debug.Log ("Login: " + "user: " + userNameInput.text + " pass: " + passwordInput.text);
 			OnLoginFailed ();
+
+			CommonMessages.UserConnectedDataMsg userTeam = new CommonMessages.UserConnectedDataMsg ();
+			Gameplay.GameDatabase.Instance.CreateNewOnlineGame (userTeam);
+			//----
 		}
 
 		public static void OnNewUserButtonPressed()

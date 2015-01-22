@@ -244,7 +244,7 @@ namespace Gameplay
 
 	public class TeamController
 	{
-		public List<int> mAllPlayers;	// All the players in this team
+		public List<int> mAllPlayers = new List<int>();	// All the players in this team
 
 		public TeamController()
 		{
@@ -295,6 +295,7 @@ namespace Gameplay
 		//-----
 		
 		public TeamController 		mTeam;
+		public TeamTactics			mTactics;
 		public StadiumController	mStadium;
 		public FinancesContoller 	mFinances;
 		
@@ -310,25 +311,11 @@ namespace Gameplay
 			mTeam = new TeamController ();
 			mStadium = new StadiumController ();
 			mFinances = new FinancesContoller ();
+			mTactics = new TeamTactics ();
 		}
 	}
 
-	public class LocalUserInfo
-	{
-		public String 	mName;
-		public DateTime mBirthDate;
-		public int    	mClubId;
-		public String 	mClubName;
-		// TODO: add other info: contract, rating etc
-		
-		public LocalUserInfo()
-		{
-			mName = "Name not set";
-			mClubName = "club not set";
-			mBirthDate = DateTime.MinValue;
-			mClubId = 0;
-		}
-	}
+
 
 	public class PlayersPool	// TODO Online : we need a table with all players. Then, we need to copy all players in this structure at connection (or at least the ones from the users's league)
 	{

@@ -10,6 +10,7 @@ namespace FMGUI
 		PAGE_NEW_USER,
 		PAGE_MAIN_MENU,
 		PAGE_TEAMMANAGEMENT,
+		PAGE_TEAMINSTRUCTIONS,
 		PAGE_NUM,
 	}
 
@@ -23,7 +24,8 @@ namespace FMGUI
 			new MenuPage_Login(),
 			new MenuPage_NewUser(),
 			new MenuPage_MainMenu(),
-			new MenuPage_TeamManagement()
+			new MenuPage_TeamManagement(),
+			new MenuPage_TeamInstructions(),
 		};
 
 		// From ID to name of the scene. Each scene is a menu page
@@ -32,7 +34,8 @@ namespace FMGUI
 			"page_login",
 			"page_newuser",
 			"page_mainmenu",
-			"page_teammanagement2"
+			"page_teammanagement2",
+			"page_teaminstructions",
 		};
 
 		public string GetSceneNameForPage(MenuPages menuPage)
@@ -121,6 +124,8 @@ namespace FMGUI
 		abstract public void OnHide();		// Called when a page is hidden. For example when oppening a new one 
 		abstract public void OnClosed();	// Called when a page is closed. Internally should call OnHide
 		abstract public void OnRequested();	// Called when a page is requested to open
+
+		public virtual void OnBack() {}
 	}
 }
 
