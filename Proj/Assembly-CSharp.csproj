@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ComboBox.cs" />
-     <Compile Include="Assets\CommonMessages.cs" />
      <Compile Include="Assets\CompetitionEngine.cs" />
      <Compile Include="Assets\DataGenerator.cs" />
      <Compile Include="Assets\GUIProxyI.cs" />
@@ -60,6 +59,8 @@
      <Compile Include="Assets\MenuPages\MenuPage_NewUser.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_TeamInstructions.cs" />
      <Compile Include="Assets\MenuPages\MenuPage_Teammanagement.cs" />
+     <Compile Include="Assets\Messages_ToClient.cs" />
+     <Compile Include="Assets\Messages_ToServer.cs" />
      <Compile Include="Assets\PlayerAndClub.cs" />
      <Compile Include="Assets\Tactics.cs" />
      <Compile Include="Assets\TacticsPageControls.cs" />

@@ -40,6 +40,12 @@ namespace FMGUI
 		{
 			
 		}
+				
+		public override void OnBack()
+		{
+			// Save the tactics, instructions and selection changes !
+			CommonMessages.ToServerMessages.SendTacticsUpdateMsg ();
+		}
 
 		public void OnFormationChangedMsg(int formationId)
 		{

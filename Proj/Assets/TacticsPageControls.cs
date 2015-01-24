@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -38,17 +39,28 @@ public class TacticsPageControls : MonoBehaviour
 
 	private void CreatePitchPos()
 	{
-		Object posPrefab = Resources.Load("Button_Pos");
+		 Object posPrefab = Resources.Load("Button_Pos");
 		//Debug.Log ("Pref inst: " + posPrefab);
 
-		GameObject canvasTactics = GameObject.Find ("Image_Tactics");
-
-		mFormPitchPos = new GameObject[Gameplay.TeamTactics.mNumPlayersOnField];
-		for (int i = 0; i < Gameplay.TeamTactics.mNumPlayersOnField; i++)
+		GameObject canvasTactics 	= GameObject.Find("Image_Tactics");
+		GameObject panelObject   	= GameObject.Find("Panel_Tactics");
+		
+		int numTotalPos 			= Gameplay.TeamTactics.mNumPlayersOnField + Gameplay.TeamTactics.mNumPlayersOnBench;
+		mFormPitchPos 				= new GameObject[numTotalPos];
+		int i = 0;
+		for (i = 0; i < Gameplay.TeamTactics.mNumPlayersOnField; i++)
 		{
 			mFormPitchPos[i] = (GameObject)Instantiate (posPrefab);
 			mFormPitchPos[i].SetActive (true);
 			mFormPitchPos[i].transform.SetParent (canvasTactics.transform);
+			mFormPitchPos[i].transform.position = new Vector3(0,0);
+		}
+
+		for (; i < numTotalPos; i++)
+		{
+			mFormPitchPos[i] = (GameObject) Instantiate(posPrefab);
+			mFormPitchPos[i].SetActive(true);
+			mFormPitchPos[i].transform.SetParent(panelObject.transform);
 			mFormPitchPos[i].transform.position = new Vector3(0,0);
 		}
 	}
@@ -71,7 +83,7 @@ public class TacticsPageControls : MonoBehaviour
 		
 		listStyle.fixedHeight = 30;
 		
-		comboBoxControl = new ComboBox(new Rect(120, 0, 100, 30), comboBoxList[0], comboBoxList, "button", "box", listStyle);
+		comboBoxControl = new ComboBox(new Rect(200, 0, 100, 30), comboBoxList[0], comboBoxList, "button", "box", listStyle);
 		//comboBoxControl.SelectedItemIndex = mCurrentListSelectedIndex;
 	}
 
@@ -83,6 +95,21 @@ public class TacticsPageControls : MonoBehaviour
 			FormationChanged(currentSelectedIndex);
 			mCurrentListSelectedIndex = currentSelectedIndex;
 		}
+
+		if (Input.GetMouseButton(0))
+		{
+				RaycastHit hit; // cast a ray from mouse pointer:				
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+						
+				//List<RaycastResult> raycastResults = new List<RaycastResult>();
+				//EventSystem.current.ra   current.RaycastAll(pointer, raycastResults);
+
+				if (Physics.Raycast(ray, out hit))
+				{
+					int a = 3;
+					a++;
+				}
+		}
 	}
 
 	void FormationChanged(int formationId)
@@ -93,8 +120,9 @@ public class TacticsPageControls : MonoBehaviour
 		// Set positions
 		// TODO: optimize allocations - check the comment above
 		//int numTactics = Gameplay.TeamTactics.mTacticName.Length;
-
-		for (int i = 0; i < Gameplay.TeamTactics.mNumPlayersOnField; i++)
+		int numTotalPos = Gameplay.TeamTactics.mNumPlayersOnField + Gameplay.TeamTactics.mNumPlayersOnBench;
+		int i = 0;
+		for (i = 0; i < Gameplay.TeamTactics.mNumPlayersOnField; i++)
 		{
 
 			Gameplay.TacticPosDescription posDesc = Gameplay.TeamTactics.mTacticDesc[formationId][i];
@@ -107,6 +135,22 @@ public class TacticsPageControls : MonoBehaviour
 			Text[] texts = mFormPitchPos[i].GetComponentsInChildren<Text>();
 			texts[0].text = posDesc.mString;						
 		}
+
+
+		float subsYOffset = 10;
+		for (; i < numTotalPos; i++)
+		{
+			Gameplay.TacticPosDescription posDesc = Gameplay.TeamTactics.mTacticDesc[formationId][i];
+			float X = 800;
+			subsYOffset += 60;
+			
+			//Debug.Log ("Pos for " + i + "-" + posDesc.mString + " " + X + "," + Y);
+			
+			mFormPitchPos[i].transform.localPosition = new Vector3(X, -subsYOffset, 0.0f);
+			Text[] texts = mFormPitchPos[i].GetComponentsInChildren<Text>();
+			texts[0].text = posDesc.mString;	
+		}
+
 	}
 	
 	private void OnGUI () 
@@ -116,3 +160,4 @@ public class TacticsPageControls : MonoBehaviour
 }
 	
 } // namespace FMGUI
+

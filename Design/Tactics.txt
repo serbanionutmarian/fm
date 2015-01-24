@@ -6,11 +6,27 @@ Offside trap: Yes, No
 Shots: Long, Short, Mixed
 
 
-Mentality: Ultra defense - Defence - Normal - Attacking - Ultra attacking
+Mentality: Ultra defense - Defense - Normal - Attacking - Ultra attacking
 Tempo:  Play around back - Slow build-up  - Standard - High-speed passing - One touch-soccer
 Pressure: 0 - 100%
 
 
--> anim for sliders
--> messages / saves
+-> substitutes
 -> better GUI , arrange, etc
+
+
+TODO:
+
+1. 
+
+{
+	public class ToServerMessages
+	{
+		public static void SendTacticsUpdateMsg()
+		{
+			Gameplay.Club club = Gameplay.GameDatabase.Instance.GetLocalUserClub();
+
+			// TODO: save these
+			//club.mTactics.mCurrentTacticIndex
+			//club.mTactics.mSelectedMatchPlayers
+			//club.mTactics.mTeamInstructions

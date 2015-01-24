@@ -30,7 +30,7 @@ namespace FMGUI
 		{
 			
 		}
-		
+
 		private static void SetCreateFailedTextState(bool visible, string reasonText)
 		{
 			GameObject createFailedGO = GameObject.Find ("Label_failcreate");						
@@ -65,23 +65,27 @@ namespace FMGUI
 
 			return -1;
 		}
-		
+
+		string[] mAggressivityNames 	= new string[]{"Toggle_AggressivityNormal", "Toggle_AggressivityVery"};
+		string[] mShotsNames			= new string[]{"Toggle_Mixed", "Toggle_Short", "Toggle_Long"};
+		string[] mMarkingNames			= new string[]{"Toggle_ManMarking", "Toggle_ZonalMarking"};
+		string[] mOffensiveTrapNames 	= new string[]{"Toggle_OffsideYes", "Toggle_OffsideNo"};
 		public void SetInstructions()
 		{
 			Gameplay.Club userClub 		= Gameplay.GameDatabase.Instance.GetLocalUserClub ();
 			Gameplay.TeamInstructions teaminstr = userClub.mTactics.mTeamInstructions;
 
 
-			int aggrIndex 				= GetIndexOfSelectedInToggleGroup(new string[]{"Toggle_AggressivityNormal", "Toggle_AggressivityVery"});
+			int aggrIndex 				= GetIndexOfSelectedInToggleGroup(mAggressivityNames);
 			teaminstr.mAggresivityType 	= (Gameplay.AggressivityType) aggrIndex;
 
-			int shotsIndex 				= GetIndexOfSelectedInToggleGroup(new string[]{"Toggle_Mixed", "Toggle_Short", "Toggle_Long"});
+			int shotsIndex 				= GetIndexOfSelectedInToggleGroup(mShotsNames);
 			teaminstr.mShotsType 		= (Gameplay.ShotsType) shotsIndex;
 
-			int markingIndex 			= GetIndexOfSelectedInToggleGroup(new string[]{"Toggle_ManMarking", "Toggle_ZonalMarking"});
+			int markingIndex 			= GetIndexOfSelectedInToggleGroup(mMarkingNames);
 			teaminstr.mMarkingType 		= (Gameplay.MarkingType) markingIndex;
 
-			int offIndex 				= GetIndexOfSelectedInToggleGroup(new string[]{"Toggle_OffsideYes", "Toggle_OffsideNo"});
+			int offIndex 				= GetIndexOfSelectedInToggleGroup(mOffensiveTrapNames);
 			teaminstr.mOffsideTrapType 	= (Gameplay.OffsideTrapType) offIndex;
 
 			GameObject sliderMentGo    	= GameObject.Find ("Slider_Mentality");

@@ -8,9 +8,9 @@ using System.Runtime.Serialization;
 
 namespace Gameplay
 {
-	public class GameDatabase 			// TODO Online: in an online game this should be stored totally on server. A part of this will be also stored on client
+	public class GameDatabase 					// TODO Online: in an online game this should be stored totally on server. A part of this will be also stored on client
 	{
-		public DateTime mCurrentTime;	// TODO Online: In an online game this should be server time
+		public DateTime mCurrentTime;			// TODO Online: In an online game this should be server time
 		public bool mIsOnlineMatch = true;		// TODO Online: true
 				
 
