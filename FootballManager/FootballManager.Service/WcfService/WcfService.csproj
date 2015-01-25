@@ -92,11 +92,13 @@
   <ItemGroup>
     <Content Include="Services\AuthService.svc" />
     <Content Include="Global.asax" />
+    <Content Include="Services\User.svc" />
     <Content Include="Services\TeamTactic.svc" />
     <Content Include="Services\Player.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Interfaces\ITeamTactic.cs" />
     <Compile Include="Services\AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
@@ -111,6 +113,9 @@
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Services\User.svc.cs">
+      <DependentUpon>User.svc</DependentUpon>
+    </Compile>
     <Compile Include="Services\TeamTactic.svc.cs">
       <DependentUpon>TeamTactic.svc</DependentUpon>
     </Compile>

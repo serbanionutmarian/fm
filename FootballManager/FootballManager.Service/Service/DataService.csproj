@@ -49,7 +49,9 @@
     <Compile Include="Interfaces\IDataGeneratorService.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Interfaces\ISchedulerService.cs" />
+    <Compile Include="Interfaces\ITeamService.cs" />
     <Compile Include="Interfaces\ITeamTacticService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ClassificationService.cs" />
     <Compile Include="Services\CountryService.cs" />
@@ -60,7 +62,9 @@
     <Compile Include="Services\DataGeneratorService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\SchedulerService.cs" />
+    <Compile Include="Services\TeamService.cs" />
     <Compile Include="Services\TeamTacticService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\DataModel.csproj">

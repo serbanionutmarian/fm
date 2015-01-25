@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Interfaces
+namespace DataService.Interfaces
 {
-    public interface IUserRepository: IGenericRepository<User>
+    public interface ITeamService : IEntityService<Team>
     {
-        User GetById(int userId);
+        
     }
 }

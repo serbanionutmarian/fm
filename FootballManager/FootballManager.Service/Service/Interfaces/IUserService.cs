@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repository.Interfaces
+namespace DataService.Interfaces
 {
-    public interface IUserRepository: IGenericRepository<User>
+    public interface IUserService : IEntityService<User>
     {
         User GetById(int userId);
     }

@@ -8,9 +8,9 @@ using System.Web;
 namespace WcfService.Interfaces
 {
     [ServiceContract]
-    public interface ITeamTactic
+    public interface IUser
     {
         [OperationContract]
-        DataModel.Tables.TeamTactic GetById(int teamId);
+        User GetByUserId(int userId);
     }
 }

@@ -38,13 +38,9 @@ namespace ConsoleTest
             //var service = scope.Resolve<IDataGeneratorService>();
             //service.AddLeagesToAllCountries();
 
-            var service = scope.Resolve<ITeamTacticService>();
+            var service = scope.Resolve<IUserService>();
             ///2288
-            service.Update(new DataModel.Tables.TeamTactic()
-            {
-                TeamId = 2288,
-                SelectedPlayers = "sds"
-            });
+            var user = service.GetById(7);
         }
 
         private static void RunUsingIoc(Action<ILifetimeScope> action)

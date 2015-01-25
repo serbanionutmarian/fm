@@ -16,5 +16,10 @@ namespace Repository.Repositories
         {
 
         }
+
+        public User GetById(int userId)
+        {
+            return _dbset.Include(user => user.Team).Single(user => user.Id == userId);
+        }
     }
 }
