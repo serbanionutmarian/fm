@@ -37,7 +37,8 @@ namespace DataModel
 
         public DbSet<DataModel.Tables.Player> Players { get; set; }
 
-
         public DbSet<Match> Matches { get; set; }
+
+        public DbSet<DataModel.Tables.TeamTactic> TeamTactics { get; set; }
     }
 }
