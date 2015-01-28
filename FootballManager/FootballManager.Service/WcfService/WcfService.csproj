@@ -92,14 +92,16 @@
   <ItemGroup>
     <Content Include="Services\AuthService.svc" />
     <Content Include="Global.asax" />
-    <Content Include="Services\User.svc" />
-    <Content Include="Services\TeamTactic.svc" />
-    <Content Include="Services\Player.svc" />
+    <Content Include="Services\TeamService.svc" />
+    <Content Include="Services\UserService.svc" />
+    <Content Include="Services\TeamTacticService.svc" />
+    <Content Include="Services\PlayerService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IUser.cs" />
-    <Compile Include="Interfaces\ITeamTactic.cs" />
+    <Compile Include="Interfaces\ITeamService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\ITeamTacticService.cs" />
     <Compile Include="Services\AuthService.svc.cs">
       <DependentUpon>AuthService.svc</DependentUpon>
     </Compile>
@@ -112,15 +114,18 @@
     </Compile>
     <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\IPlayer.cs" />
-    <Compile Include="Services\User.svc.cs">
-      <DependentUpon>User.svc</DependentUpon>
+    <Compile Include="Interfaces\IPlayerService.cs" />
+    <Compile Include="Services\TeamService.svc.cs">
+      <DependentUpon>TeamService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Services\TeamTactic.svc.cs">
-      <DependentUpon>TeamTactic.svc</DependentUpon>
+    <Compile Include="Services\UserService.svc.cs">
+      <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Services\Player.svc.cs">
-      <DependentUpon>Player.svc</DependentUpon>
+    <Compile Include="Services\TeamTacticService.svc.cs">
+      <DependentUpon>TeamTacticService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PlayerService.svc.cs">
+      <DependentUpon>PlayerService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

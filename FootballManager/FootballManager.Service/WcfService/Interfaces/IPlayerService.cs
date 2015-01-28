@@ -10,7 +10,7 @@ namespace WcfService.Interfaces
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IPlayer" in both code and config file together.
     [ServiceContract]
-    public interface IPlayer
+    public interface IPlayerService
     {
         [OperationContract]
         List<Classification> GetAllPlayerAttributes();

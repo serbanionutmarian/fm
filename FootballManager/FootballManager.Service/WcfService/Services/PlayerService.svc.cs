@@ -10,10 +10,10 @@ using WcfService.Interfaces;
 
 namespace WcfService.Services
 {
-    public class Player : IPlayer
+    public class PlayerService : WcfService.Interfaces.IPlayerService
     {
-        private IPlayerService _playerService;
-        public Player(IPlayerService playerService)
+        private DataService.Interfaces.IPlayerService _playerService;
+        public PlayerService(DataService.Interfaces.IPlayerService playerService)
         {
             _playerService = playerService;
         }

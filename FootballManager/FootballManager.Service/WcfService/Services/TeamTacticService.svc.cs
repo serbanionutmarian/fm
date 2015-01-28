@@ -11,11 +11,11 @@ using WcfService.Interfaces;
 
 namespace WcfService.Services
 {
-    public class TeamTactic : ITeamTactic
+    public class TeamTactic : WcfService.Interfaces.ITeamTacticService
     {
-        private readonly ITeamTacticService _teamTacticService;
+        private readonly DataService.Interfaces.ITeamTacticService _teamTacticService;
 
-        public TeamTactic(ITeamTacticService teamTacticService)
+        public TeamTactic(DataService.Interfaces.ITeamTacticService teamTacticService)
         {
             _teamTacticService = teamTacticService;
         }
