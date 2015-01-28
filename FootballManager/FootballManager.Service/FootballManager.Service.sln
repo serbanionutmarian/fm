@@ -16,6 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A7E03E8F-A
 		Generate Unity Proxy.txt = Generate Unity Proxy.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{4818B479-C489-40ED-A9FB-0369615E50C0}"
+	ProjectSection(SolutionItems) = preProject
+		Entire database.sql = Entire database.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
