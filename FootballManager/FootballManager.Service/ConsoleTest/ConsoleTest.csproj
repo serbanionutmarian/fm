@@ -83,6 +83,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dto\Dto.csproj">
+      <Project>{f707c2dc-3ec1-41ce-a0a9-ca511f06e020}</Project>
+      <Name>Dto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\DataModel.csproj">
       <Project>{8d93c360-d06c-4af9-906e-928df1710566}</Project>
       <Name>DataModel</Name>
