@@ -25,12 +25,6 @@ namespace Repository
         {
             _dbContext = context;
         }
-
-        public void AllowMultipleActiveResultSets()
-        {
-            // to do (must investigate) ("there is already an open datareader associated with this command which must be closed first. ");
-            _dbContext.Database.Connection.ConnectionString = _dbContext.Database.Connection.ConnectionString + ";MultipleActiveResultSets=true;";
-        }
         /// <summary>
         /// Saves all pending changes
         /// </summary>

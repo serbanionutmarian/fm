@@ -109,10 +109,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dto\Dto.csproj">
-      <Project>{81fe0ebf-61e6-4c52-bc29-acc4b17d0d49}</Project>
-      <Name>Dto</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\DataModel.csproj">
       <Project>{8d93c360-d06c-4af9-906e-928df1710566}</Project>
       <Name>DataModel</Name>
