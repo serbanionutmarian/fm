@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autofac;
 using System.Web.Mvc;
 using DataService;
 using System.ComponentModel;
 using DataService.Services;
 using DataService.Interfaces;
-using AutofacModules.Modules;
 using System.Data.Entity;
 using DataModel;
-using DataModel.Auth;
+using ServiceStack;
+using System.ServiceModel;
+using LightInject;
+using SSService.Ioc;
+using SSService.Ioc.Modules;
+using Dto.Auth.Request;
+using Dto.Auth.Response;
 
 namespace ConsoleTest
 {
@@ -21,40 +25,46 @@ namespace ConsoleTest
 
         static void Main(string[] args)
         {
-            Database.SetInitializer<DbManagerContext>(null);
-            RunUsingIoc(RunMethod);
-        }
-
-
-        private static void RunMethod(ILifetimeScope scope)
-        {
-            //var service = scope.Resolve<IAuthService>();
-            //service.SignUp(new SignupDto() { 
-            //    DisplayName="Ionut S.",
-            //    Email="serban.ionut.marian@gmail.com",
-            //    Password="test..."
-            //});
-
-            //var service = scope.Resolve<IDataGeneratorService>();
-            //service.AddLeagesToAllCountries();
-
-            var service = scope.Resolve<IUserService>();
-            ///2288
-            var user = service.GetById(7);
-        }
-
-        private static void RunUsingIoc(Action<ILifetimeScope> action)
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new RepositoryModule());
-            builder.RegisterModule(new ServiceModule());
-            builder.RegisterModule(new EFModule());
-
-            using (var container = builder.Build())
-            using (var scope = container.BeginLifetimeScope())
+            var restClient = new JsonServiceClient("http://localhost:62333/api");
+            var res = restClient.Post<SignupResponse>(new SignupRequest()
+                {
+                    CountryId = 1,
+                    DisplayName = "Ionut S.",
+                    Email = "serban..",
+                    Password = ".."
+                });
+            RegisterUsingIoc(container =>
             {
-                action(scope);
+                //var service = container.GetInstance<Auth>();
+                //var countries = service.GetAll();
+            });
+        }
+
+        private static void RegisterUsingIoc(Action<ServiceContainer> action)
+        {
+            using (var container = new ServiceContainer())
+            {
+                container.RegisterFrom<DataServiceModule>();
+                container.RegisterFrom<RepositoryModule>();
+                container.RegisterFrom<EntityFrameworkModule>();
+                using (container.BeginScope())
+                {
+                    action(container);
+                }
             }
+        }
+
+        public static void Monitor(string testName, Action action, int count = 1)
+        {
+            Console.WriteLine(testName);
+            var start = DateTime.Now;
+            for (int i = 0; i < count; i++)
+            {
+                var start1 = DateTime.Now;
+                action();
+                Console.WriteLine(string.Format("{2}.Test for {0}:{1}", testName, DateTime.Now - start1, i));
+            }
+            Console.WriteLine(string.Format("Test for {0}:{1}", testName, DateTime.Now - start));
         }
     }
 }
