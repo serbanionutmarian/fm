@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataService", "Service\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{9447A90F-24F6-4AF6-AD3F-E08CDB6F41BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\WcfService.csproj", "{19AFE592-485C-4AC2-9945-262A4A74800A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A7E03E8F-AA62-4F89-B08A-C520BB93847D}"
 	ProjectSection(SolutionItems) = preProject
 		Generate Unity Proxy.txt = Generate Unity Proxy.txt
@@ -20,6 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{4818B479-C48
 	ProjectSection(SolutionItems) = preProject
 		Entire database.sql = Entire database.sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSService", "SSService\SSService.csproj", "{3F5731DB-4D9D-4D7D-985D-DD9344C8F4FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dto", "Dto\Dto.csproj", "{81FE0EBF-61E6-4C52-BC29-ACC4B17D0D49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +45,14 @@ Global
 		{9447A90F-24F6-4AF6-AD3F-E08CDB6F41BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9447A90F-24F6-4AF6-AD3F-E08CDB6F41BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9447A90F-24F6-4AF6-AD3F-E08CDB6F41BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19AFE592-485C-4AC2-9945-262A4A74800A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19AFE592-485C-4AC2-9945-262A4A74800A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19AFE592-485C-4AC2-9945-262A4A74800A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19AFE592-485C-4AC2-9945-262A4A74800A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F5731DB-4D9D-4D7D-985D-DD9344C8F4FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5731DB-4D9D-4D7D-985D-DD9344C8F4FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5731DB-4D9D-4D7D-985D-DD9344C8F4FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5731DB-4D9D-4D7D-985D-DD9344C8F4FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FE0EBF-61E6-4C52-BC29-ACC4B17D0D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FE0EBF-61E6-4C52-BC29-ACC4B17D0D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FE0EBF-61E6-4C52-BC29-ACC4B17D0D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FE0EBF-61E6-4C52-BC29-ACC4B17D0D49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
