@@ -120,7 +120,6 @@ namespace DataService.Services
             _leagesConfigurationRepository = leagesConfigurationRepository;
             _countryService = countryService;
             _seriesRepository = seriesRepository;
-            _unitOfWork.AllowMultipleActiveResultSets();
 
             _random = new Random();
         }

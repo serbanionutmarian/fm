@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataModel.Auth;
+using Dto.Auth.Request;
 
 namespace DataService.Services
 {
@@ -23,16 +23,16 @@ namespace DataService.Services
             _teamRepository = teamRepository;
         }
 
-        public void SignUp(SignupDto input)
+        public void SignUp(SignupRequest request)
         {
             // TO DO!! (when we'll add countries in UI)
-            if (input.CountryId == 0)
+            if (request.CountryId == 0)
             {
                 // romania
-                input.CountryId = 1;
+                request.CountryId = 1;
             }
             // TO DO!! (transaction must be added)
-            var team = _teamRepository.GetRandomBoot(input.CountryId);
+            var team = _teamRepository.GetRandomBoot(request.CountryId);
             if (team == null)
             {
                 throw new Exception("There is no team to take in this country!! Please select another country or wait to the end of the month!!");
@@ -40,10 +40,10 @@ namespace DataService.Services
             team.IsBoot = false;
             _userRepository.Add(new DataModel.Tables.User()
             {
-                DisplayName = input.DisplayName,
-                Email = input.Email,
-                Password = input.Password,
-                CountryId = input.CountryId,
+                DisplayName = request.DisplayName,
+                Email = request.Email,
+                Password = request.Password,
+                CountryId = request.CountryId,
                 Team = team,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now

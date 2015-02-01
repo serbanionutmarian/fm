@@ -31,7 +31,6 @@ namespace DataService.Services
 
         public void AllTableMatches()
         {
-            _unitOfWork.AllowMultipleActiveResultSets();
             using (var transaction = new TransactionScope())
             {
                 foreach (var series in _seriesRepository.GetAll())
