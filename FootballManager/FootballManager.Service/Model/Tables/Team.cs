@@ -13,7 +13,7 @@ namespace DataModel.Tables
     {
         public Team()
         {
-            Players = new List<Player>();
+            Players = new HashSet<Player>();
         }
 
         [Required]

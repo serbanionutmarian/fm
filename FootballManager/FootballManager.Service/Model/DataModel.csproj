@@ -75,7 +75,6 @@
     <Compile Include="Tables\LeagesConfiguration.cs" />
     <Compile Include="Tables\Match.cs" />
     <Compile Include="Tables\Player.cs" />
-    <Compile Include="Tables\PlayerAttributeValue.cs" />
     <Compile Include="Tables\Series.cs" />
     <Compile Include="Tables\Team.cs" />
     <Compile Include="Tables\TeamTactic.cs" />

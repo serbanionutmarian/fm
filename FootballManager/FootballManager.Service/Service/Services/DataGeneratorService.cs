@@ -23,35 +23,37 @@ namespace DataService.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITeamRepository _teamRepository;
         private readonly ILeagesConfigurationRepository _leagesConfigurationRepository;
-        private readonly ICountryService _countryService;
+        private readonly ICountryRepository _countryRepository;
         private readonly ISeriesRepository _seriesRepository;
 
         private Random _random;
         private int _maxAttrValueAtGeneration = 20;
-        struct AttributeRange
+        class AttributeRange
         {
-            public PlayerAttribute mAttrib;
-            public int mMin;
-            public int mMax;
+            public PlayerAttribute PlayerAttribute { get; private set; }
+            public int Min { get; private set; }
+            public int Max { get; private set; }
 
-            public AttributeRange(PlayerAttribute playerAttr, int min, int max)
+            public AttributeRange(PlayerAttribute playerAttribute, int min, int max)
             {
-                mAttrib = playerAttr;
-                mMin = min;
-                mMax = max;
+                PlayerAttribute = playerAttribute;
+                Min = min;
+                Max = max;
             }
         }
-        public enum PlayerPosition
+        enum PlayerPosition
         {
             FIELD_POS_GK = 0,
             FIELD_POS_DEF = 1,
             FIELD_POS_MID = 2,
             FIELD_POS_ATT = 3
         }
-        public static class Constants
+
+        static class Constants
         {
             public static Dictionary<PlayerPosition, int> NumberOfPlayersPerPositions;
 
+            public static Dictionary<PlayerPosition, List<AttributeRange>> AttributesRankePerFieldPostions { get; set; }
             static Constants()
             {
                 NumberOfPlayersPerPositions = new Dictionary<PlayerPosition, int>();
@@ -59,69 +61,54 @@ namespace DataService.Services
                 NumberOfPlayersPerPositions.Add(PlayerPosition.FIELD_POS_DEF, 8);
                 NumberOfPlayersPerPositions.Add(PlayerPosition.FIELD_POS_MID, 10);
                 NumberOfPlayersPerPositions.Add(PlayerPosition.FIELD_POS_ATT, 4);
+
+                AttributesRankePerFieldPostions = new Dictionary<PlayerPosition, List<AttributeRange>>();
+                AttributesRankePerFieldPostions.Add(PlayerPosition.FIELD_POS_GK, new List<AttributeRange>() { 
+                    new AttributeRange(PlayerAttribute.ATTR_HANDLING,8,13),
+                    new AttributeRange(PlayerAttribute.ATTR_REFLEXES,8,13)
+                });
+                AttributesRankePerFieldPostions.Add(PlayerPosition.FIELD_POS_DEF, new List<AttributeRange>() { 
+                      new AttributeRange(PlayerAttribute.ATTR_TACKLING,8,12),
+                      new AttributeRange(PlayerAttribute.ATTR_MARKING,5,10),
+                      new AttributeRange(PlayerAttribute.ATTR_HEADING,5,12),
+                      new AttributeRange(PlayerAttribute.ATTR_SPEED,4,8),
+                      new AttributeRange(PlayerAttribute.ATTR_POSITIONING,5,12)
+                });
+                AttributesRankePerFieldPostions.Add(PlayerPosition.FIELD_POS_MID, new List<AttributeRange>() { 
+                      new AttributeRange(PlayerAttribute.ATTR_PASSING,8,12),
+                      new AttributeRange(PlayerAttribute.ATTR_TEAMWORK,8,12),
+                      new AttributeRange(PlayerAttribute.ATTR_CROSSING,5,12),
+                      new AttributeRange(PlayerAttribute.ATTR_CREATIVITY,5,12),
+                      new AttributeRange(PlayerAttribute.ATTR_SPEED,8,12),
+                      new AttributeRange(PlayerAttribute.ATTR_ACCELERATION,8,12)
+                });
+                AttributesRankePerFieldPostions.Add(PlayerPosition.FIELD_POS_ATT, new List<AttributeRange>() { 
+                      new AttributeRange(PlayerAttribute.ATTR_FINISHING,8,12),
+                      new AttributeRange(PlayerAttribute.ATTR_LONG_SHOTS,4,7),
+                      new AttributeRange(PlayerAttribute.ATTR_DRIBBLING,6,9),
+                      new AttributeRange(PlayerAttribute.ATTR_TECHNIQUE,5,9),
+                      new AttributeRange(PlayerAttribute.ATTR_OFF_THE_BALL,3,8),
+                      new AttributeRange(PlayerAttribute.ATTR_SPEED,5,10),
+                      new AttributeRange(PlayerAttribute.ATTR_ACCELERATION,5,10),
+                      new AttributeRange(PlayerAttribute.ATTR_STRENGTH,5,10),
+                      new AttributeRange(PlayerAttribute.ATTR_HEADING,5,10),
+                      new AttributeRange(PlayerAttribute.ATTR_POSITIONING,5,10)
+                });
             }
         }
-        AttributeRange[][] mAttributesRangePerFieldPos = new AttributeRange[ATTR_NUM_ATTRIBUTES][]
-		{  
-			// GK
-			new AttributeRange[] 
-			{
-				new AttributeRange(PlayerAttribute.ATTR_HANDLING,			8,13),
-				new AttributeRange(PlayerAttribute.ATTR_REFLEXES,			8,13),
-			},
-			
-			// DEF
-			new AttributeRange[] 
-			{
-				new AttributeRange(PlayerAttribute.ATTR_TACKLING,			8,12),
-				new AttributeRange(PlayerAttribute.ATTR_MARKING, 			5,10),
-				new AttributeRange(PlayerAttribute.ATTR_HEADING, 			5,12),
-				new AttributeRange(PlayerAttribute.ATTR_SPEED,   			4,8),
-				new AttributeRange(PlayerAttribute.ATTR_POSITIONING, 		5,12),
-			},
-			
-			// MID
-			new AttributeRange[] 
-			{
-				new AttributeRange(PlayerAttribute.ATTR_PASSING,			8,12),
-				new AttributeRange(PlayerAttribute.ATTR_TEAMWORK,			8,12),
-				new AttributeRange(PlayerAttribute.ATTR_CROSSING,			5,12),
-				new AttributeRange(PlayerAttribute.ATTR_CREATIVITY,			5,12),
-				new AttributeRange(PlayerAttribute.ATTR_SPEED,				8,12),
-				new AttributeRange(PlayerAttribute.ATTR_ACCELERATION,		8,12),
-			},
-			
-			// ATT
-			new AttributeRange[] 
-			{
-				new AttributeRange(PlayerAttribute.ATTR_FINISHING,			8,12),
-				new AttributeRange(PlayerAttribute.ATTR_LONG_SHOTS,			4,7),
-				new AttributeRange(PlayerAttribute.ATTR_DRIBBLING,			6,9),
-				new AttributeRange(PlayerAttribute.ATTR_TECHNIQUE,			5,9),
-				new AttributeRange(PlayerAttribute.ATTR_OFF_THE_BALL,		3,8),
-				new AttributeRange(PlayerAttribute.ATTR_SPEED,				5,10),
-				new AttributeRange(PlayerAttribute.ATTR_ACCELERATION,		5,10),
-				new AttributeRange(PlayerAttribute.ATTR_STRENGTH,			5,10),
-				new AttributeRange(PlayerAttribute.ATTR_HEADING,			5,10),
-				new AttributeRange(PlayerAttribute.ATTR_POSITIONING,		5,10),
-			},
-		};
-        private const int ATTR_NUM_ATTRIBUTES = 4;
 
         public DataGeneratorService(
             IUnitOfWork unitOfWork,
             ITeamRepository teamRepository,
             ILeagesConfigurationRepository leagesConfigurationRepository,
-            ICountryService countryService,
+            ICountryRepository countryRepository,
             ISeriesRepository seriesRepository)
         {
             _unitOfWork = unitOfWork;
             _teamRepository = teamRepository;
             _leagesConfigurationRepository = leagesConfigurationRepository;
-            _countryService = countryService;
+            _countryRepository = countryRepository;
             _seriesRepository = seriesRepository;
-
-            _random = new Random();
         }
 
         #endregion
@@ -134,14 +121,13 @@ namespace DataService.Services
             using (var transaction = new TransactionScope(TransactionScopeOption.Required, new TimeSpan(2, 0, 0)))
             {
                 var leagesConfigurations = _leagesConfigurationRepository.GetAll();
-                var countries = _countryService.GetAll();
+                var countries = _countryRepository.GetAll();
                 foreach (var country in countries)
                 {
                     AddLeagesToCountry(leagesConfigurations, country);
                 }
                 transaction.Complete();
             }
-
         }
         //test bulk inset
         //private static void PerformBulkCopy()
@@ -201,7 +187,6 @@ namespace DataService.Services
                 {
                     parentSeries = AddSeriesToCountry(configuration, null, country.Id, nrOfTeamsInSeries);
                 }
-
             }
             country.CurrentNrOfLeages += country.NrOfLeagesToAdd;
             country.NrOfLeagesToAdd = 0;
@@ -213,11 +198,11 @@ namespace DataService.Services
             var result = 1;
             foreach (var leagesConfiguration in leagesConfigurations)
             {
+                result *= leagesConfiguration.NrOfBranchSeries;
                 if (leagesConfiguration.Id == currentNrOfLeages)
                 {
                     return result;
                 }
-                result *= leagesConfiguration.NrOfBranchSeries;
             }
             return result;
         }
@@ -239,22 +224,21 @@ namespace DataService.Services
                 //add team boots
                 for (int j = 0; j < configuration.CurrentNrOfTeams; j++)
                 {
-                    AddTeamBoot(series);
+                    AddTeamBoot(series, configuration);
                 }
             }
             return result;
         }
 
-        private void AddTeamBoot(DataModel.Tables.Series series)
+        private void AddTeamBoot(DataModel.Tables.Series series, DataModel.Tables.LeagesConfiguration configuration)
         {
             // TO DO!! (generate team name)
             var team = new DataModel.Tables.Team()
             {
                 Name = "team " + Guid.NewGuid(),
-                IsBoot = true,
-                Series = series
+                IsBoot = true
             };
-            _teamRepository.Add(team);
+
             foreach (PlayerPosition playerPosition in Enum.GetValues(typeof(PlayerPosition)))
             {
                 foreach (KeyValuePair<PlayerPosition, int> playerPositionCount in Constants.NumberOfPlayersPerPositions)
@@ -269,54 +253,30 @@ namespace DataService.Services
                     DateTime tempDate = new DateTime(age, month, day);
                     player.BirthDate.Subtract(tempDate);
 
-                    // to do!! (how to implement this)
-                    int attributesSum = _random.Next(0, 100);
+                    int attributesSum = _random.Next(configuration.MinOverallSkills, configuration.MaxOverallSkills);
                     GenerateAttributesForPlayer(player, playerPositionCount.Key, attributesSum);
                     team.Players.Add(player);
                 }
             }
-            try
-            {
-                _unitOfWork.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
-
+            series.Teams.Add(team);
         }
 
-        void GenerateAttributesForPlayer(Player player, PlayerPosition fieldPos, int attributesSum)
+        private void GenerateAttributesForPlayer(Player player, PlayerPosition fieldPos, int attributesSum)
         {
             player.Name = "player_" + Guid.NewGuid();
             // Max morale
 
-            player.PlayersAttributesValues.Add(new PlayerAttributeValue()
-            {
-                AttributeId = (int)PlayerAttribute.ATTR_MORALE,
-                Value = _maxAttrValueAtGeneration
-            });
-            player.SetAttribute(PlayerAttribute.ATTR_MORALE, _maxAttrValueAtGeneration);
+            player.ATTR_MORALE = _maxAttrValueAtGeneration;
 
             // Avg form
-            player.SetAttribute(PlayerAttribute.ATTR_FORM, _maxAttrValueAtGeneration);
+            player.ATTR_FORM = _maxAttrValueAtGeneration;
 
             // Leadership, Tenacity - 1/8 to be a good leader
             int leaderProb = _random.Next(1, 8);
             if (leaderProb == 1)
             {
-                player.SetAttribute(PlayerAttribute.ATTR_LEADERSHIP, _random.Next(10, 20));
-                player.SetAttribute(PlayerAttribute.ATTR_TENACITY, _random.Next(10, 20));
+                player.ATTR_LEADERSHIP = _random.Next(10, 20);
+                player.ATTR_TENACITY = _random.Next(10, 20);
             }
             //----
 
@@ -326,47 +286,47 @@ namespace DataService.Services
             int cornerTakerProb = 4;
             int throwerTakerProb = 2;
 
-            player.SetAttribute(PlayerAttribute.ATTR_PENALTY, (_random.Next(1, 20) <= penTakerProb ? _random.Next(14, 20) : _random.Next(3, 14)));
-            player.SetAttribute(PlayerAttribute.ATTR_FREE_KICKS, (_random.Next(1, 20) <= freekickTakerProb ? _random.Next(14, 20) : _random.Next(3, 14)));
-            player.SetAttribute(PlayerAttribute.ATTR_CORNERS, (_random.Next(1, 20) <= cornerTakerProb ? _random.Next(14, 20) : _random.Next(3, 14)));
-            player.SetAttribute(PlayerAttribute.ATTR_THROWINS, (_random.Next(1, 20) <= throwerTakerProb ? _random.Next(14, 20) : _random.Next(3, 14)));
+            player.ATTR_PENALTY = _random.Next(1, 20) <= penTakerProb ? _random.Next(14, 20) : _random.Next(3, 14);
+            player.ATTR_FREE_KICKS = _random.Next(1, 20) <= freekickTakerProb ? _random.Next(14, 20) : _random.Next(3, 14);
+            player.ATTR_CORNERS = _random.Next(1, 20) <= cornerTakerProb ? _random.Next(14, 20) : _random.Next(3, 14);
+            player.ATTR_THROWINS = _random.Next(1, 20) <= throwerTakerProb ? _random.Next(14, 20) : _random.Next(3, 14);
             //----
 
             // Generate the minimum attributes
-            AttributeRange[] minAttrForFieldPos = mAttributesRangePerFieldPos[(int)fieldPos];
-            for (int i = 0; i < minAttrForFieldPos.Length; i++)
+            List<AttributeRange> minAttrForFieldPos = Constants.AttributesRankePerFieldPostions[fieldPos];
+            foreach (var attrFieldPos in minAttrForFieldPos)
             {
-                AttributeRange range = minAttrForFieldPos[i];
-                player.SetAttribute(range.mAttrib, _random.Next(range.mMin, range.mMax));
+                player.SetAttribute(attrFieldPos.PlayerAttribute, _random.Next(attrFieldPos.Min, attrFieldPos.Max));
             }
             //---------
 
             // Randomly distribute the rest of attributes
-            for (int i = 0; i < ATTR_NUM_ATTRIBUTES; i++)
+            //ATTR_NUM_ATTRIBUTES??
+            foreach (var playerAttribute in Enum.GetValues(typeof(PlayerAttribute)))
             {
-                PlayerAttribute playerAttr = (PlayerAttribute)i;
-                attributesSum -= (int)player.GetAttribute(playerAttr);
+                attributesSum -= player.GetAttribute((PlayerAttribute)playerAttribute);
             }
             //     System.Diagnostics.Debug.Assert(attributesSum > 20);	// We expect to remain with something after setting the min attributes..
 
+            var numberOfAttributes = Enum.GetValues(typeof(PlayerAttribute)).Length;
             for (int i = 0; i < attributesSum; i++)
             {
-                PlayerAttribute playerAttr = (PlayerAttribute)_random.Next(0, ATTR_NUM_ATTRIBUTES - 1);	// TODO: Should we have different probabilities for attributes ??
+                PlayerAttribute playerAttr = (PlayerAttribute)_random.Next(0, numberOfAttributes - 1);	// TODO: Should we have different probabilities for attributes ??
                 player.SetAttribute(playerAttr, player.GetAttribute(playerAttr) + 1);
             }
             //---------
 
-            // Make all attributes between [0,1]
-            for (int i = 0; i < ATTR_NUM_ATTRIBUTES; i++)
-            {
-                PlayerAttribute playerAttr = (PlayerAttribute)i;
-                player.SetAttribute(playerAttr, player.GetAttribute(playerAttr) / _maxAttrValueAtGeneration);
-                if (player.GetAttribute(playerAttr) > 1)
-                {
-                    player.SetAttribute(playerAttr, 1); // TODO: need to keep an eye on this...
-                }
-            }
-            //---------
+            //// Make all attributes between [0,1]
+            //for (int i = 0; i < ATTR_NUM_ATTRIBUTES; i++)
+            //{
+            //    PlayerAttribute playerAttr = (PlayerAttribute)i;
+            //    player.SetAttribute(playerAttr, player.GetAttribute(playerAttr) / _maxAttrValueAtGeneration);
+            //    if (player.GetAttribute(playerAttr) > 1)
+            //    {
+            //        player.SetAttribute(playerAttr, 1); // TODO: need to keep an eye on this...
+            //    }
+            //}
+            ////---------
         }
     }
 }

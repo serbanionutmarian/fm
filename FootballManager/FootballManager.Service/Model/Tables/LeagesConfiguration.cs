@@ -20,5 +20,11 @@ namespace DataModel.Tables
 
         [Required]
         public int NrOfBranchSeries { get; set; }
+
+        [Required]
+        public int MinOverallSkills { get; set; }
+
+        [Required]
+        public int MaxOverallSkills { get; set; }
     }
 }

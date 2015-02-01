@@ -12,7 +12,7 @@ namespace SSService.Ioc.Modules
         public void Compose(IServiceRegistry serviceRegistry)
         {
             serviceRegistry.RegisterAssembly(Assembly.Load("Repository"),
-                () => new PerRequestLifeTime(),
+                () => new PerScopeLifetime(),
                 (serviceType, implementingType) => serviceType.Name.EndsWith("Repository"));
         }
     }

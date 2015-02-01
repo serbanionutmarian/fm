@@ -14,7 +14,6 @@ namespace Repository.Repositories
         public CountryRepository(DbContext context)
             : base(context)
         {
-
         }
         public Country GetById(int id)
         {

@@ -13,8 +13,8 @@ namespace SSService.Ioc.Modules
     {
         public void Compose(IServiceRegistry serviceRegistry)
         {
-            serviceRegistry.Register<DbContext, DbManagerContext>(new PerRequestLifeTime());
-            serviceRegistry.Register<IUnitOfWork, UnitOfWork>(new PerRequestLifeTime());
+            serviceRegistry.Register<DbContext, DbManagerContext>(new PerScopeLifetime());
+            serviceRegistry.Register<IUnitOfWork, UnitOfWork>(new PerScopeLifetime());
         }
     }
 }

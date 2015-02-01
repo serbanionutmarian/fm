@@ -20,7 +20,6 @@ namespace Repository
         {
             _entities = context;
             _dbset = context.Set<T>();
-           
         }
 
         public virtual IEnumerable<T> GetAll()

@@ -17,26 +17,36 @@ using SSService.Ioc;
 using SSService.Ioc.Modules;
 using Dto.Auth.Request;
 using Dto.Auth.Response;
+using System.Reflection;
+using DataModel.Player;
 
 namespace ConsoleTest
 {
+    class MyClass
+    {
+        public int MyProperty { get; set; }
+    }
     class Program
     {
 
         static void Main(string[] args)
         {
-            var restClient = new JsonServiceClient("http://localhost:62333/api");
-            var res = restClient.Post<SignupResponse>(new SignupRequest()
-                {
-                    CountryId = 1,
-                    DisplayName = "Ionut S.",
-                    Email = "serban..",
-                    Password = ".."
-                });
+            //var restClient = new JsonServiceClient("http://localhost:62333");
+            //var res = restClient.Post<SignupResponse>(new SignupRequest()
+            //    {
+            //        CountryId = 1,
+            //        DisplayName = "Ionut S.",
+            //        Email = "serban..",
+            //        Password = ".."
+            //    });
             RegisterUsingIoc(container =>
             {
-                //var service = container.GetInstance<Auth>();
-                //var countries = service.GetAll();
+                var service = container.GetInstance<IDataGeneratorService>();
+
+                Monitor(() =>
+                {
+                    service.AddLeagesToAllCountries();
+                });
             });
         }
 
@@ -54,7 +64,7 @@ namespace ConsoleTest
             }
         }
 
-        public static void Monitor(string testName, Action action, int count = 1)
+        public static void Monitor(Action action, string testName = "test", int count = 1)
         {
             Console.WriteLine(testName);
             var start = DateTime.Now;
@@ -62,7 +72,10 @@ namespace ConsoleTest
             {
                 var start1 = DateTime.Now;
                 action();
-                Console.WriteLine(string.Format("{2}.Test for {0}:{1}", testName, DateTime.Now - start1, i));
+                if (count > 1)
+                {
+                    Console.WriteLine(string.Format("{2}.Test for {0}:{1}", testName, DateTime.Now - start1, i));
+                }
             }
             Console.WriteLine(string.Format("Test for {0}:{1}", testName, DateTime.Now - start));
         }

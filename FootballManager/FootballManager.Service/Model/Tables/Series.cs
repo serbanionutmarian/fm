@@ -11,6 +11,10 @@ namespace DataModel.Tables
     [Table("Series")]
     public class Series : Entity<int>
     {
+        public Series()
+        {
+            Teams = new HashSet<Team>();
+        }
         [Required]
         public int LeagesConfigurationId { get; set; }
 
@@ -28,7 +32,6 @@ namespace DataModel.Tables
         [ForeignKey("ParentId")]
         public virtual Series Parent { get; set; }
 
-        [ForeignKey("ParentId")]
-        public virtual IEnumerable<Series> Children { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }
