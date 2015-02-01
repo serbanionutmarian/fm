@@ -41,6 +41,9 @@ namespace ConsoleTest
             //    });
             RegisterUsingIoc(container =>
             {
+                var teamTactic = container.GetInstance<ITeamService>();
+                var result = teamTactic.GetAll().ToList();
+
                 var service = container.GetInstance<IDataGeneratorService>();
 
                 Monitor(() =>

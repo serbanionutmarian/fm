@@ -49,7 +49,6 @@
     <Compile Include="Interfaces\IMatchRepository.cs" />
     <Compile Include="Interfaces\ISeriesRepository.cs" />
     <Compile Include="Interfaces\ITeamRepository.cs" />
-    <Compile Include="Interfaces\ITeamTacticRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
@@ -57,7 +56,6 @@
     <Compile Include="Repositories\MatchRepository.cs" />
     <Compile Include="Repositories\SeriesRepository.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
-    <Compile Include="Repositories\TeamTacticRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

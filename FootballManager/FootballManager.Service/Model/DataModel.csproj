@@ -77,7 +77,6 @@
     <Compile Include="Tables\Player.cs" />
     <Compile Include="Tables\Series.cs" />
     <Compile Include="Tables\Team.cs" />
-    <Compile Include="Tables\TeamTactic.cs" />
     <Compile Include="Tables\User.cs" />
   </ItemGroup>
   <ItemGroup>

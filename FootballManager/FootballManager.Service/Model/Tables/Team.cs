@@ -28,6 +28,30 @@ namespace DataModel.Tables
         [Required]
         public bool IsBoot { get; set; }
 
+        [Required]
+        public string SelectedPlayers { get; set; }
+
+        [Required]
+        public int ShotsType { get; set; }
+
+        [Required]
+        public int MarkingType { get; set; }
+
+        [Required]
+        public int AggressivityType { get; set; }
+
+        [Required]
+        public int OffsideTrapType { get; set; }
+
+        [Required]
+        public decimal Mentality { get; set; }
+
+        [Required]
+        public decimal Pressure { get; set; }
+
+        [Required]
+        public decimal Tempo { get; set; }
+
         public virtual ICollection<Player> Players { get; set; }
     }
 }
