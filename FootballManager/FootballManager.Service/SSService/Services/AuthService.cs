@@ -11,22 +11,16 @@ namespace SSService.Services
 {
     public class AuthService : Service
     {
-        private readonly IDataGeneratorService _service;
+        private readonly IAuthService _service;
 
-        public AuthService(IDataGeneratorService service)
+        public AuthService(IAuthService service)
         {
             _service = service;
         }
 
-        public SignupResponse Get(SignupRequest request)
+        public SignupResponse Post(SignupRequest request)
         {
-            _service.AddLeagesToAllCountries();
-            //  _service.SignUp(request);
-
-            return new SignupResponse()
-            {
-                Result = request.ToString()
-            };
+            return _service.SignUp(request);
         }
     }
 }

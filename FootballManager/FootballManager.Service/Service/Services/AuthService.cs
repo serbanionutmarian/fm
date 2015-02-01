@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dto.Auth.Request;
+using Dto.Auth.Response;
 
 namespace DataService.Services
 {
@@ -23,7 +24,7 @@ namespace DataService.Services
             _teamRepository = teamRepository;
         }
 
-        public void SignUp(SignupRequest request)
+        public SignupResponse SignUp(SignupRequest request)
         {
             // TO DO!! (when we'll add countries in UI)
             if (request.CountryId == 0)
@@ -50,6 +51,8 @@ namespace DataService.Services
             });
 
             _unitOfWork.SaveChanges();
+
+            return null;
         }
     }
 }

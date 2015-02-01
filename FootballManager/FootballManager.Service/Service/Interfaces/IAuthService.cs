@@ -1,4 +1,5 @@
 ﻿using Dto.Auth.Request;
+using Dto.Auth.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace DataService.Interfaces
 {
     public interface IAuthService
     {
-        void SignUp(SignupRequest request);
+        SignupResponse SignUp(SignupRequest request);
     }
 }
