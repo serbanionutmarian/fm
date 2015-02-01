@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Dto.Auth.Request
 {
     [Route("/signup")]
-    //  [Route("/signup", Verbs = "POST")]
+    [Route("/signup", Verbs = "POST")]
     public class SignupRequest : IReturn<SignupResponse>
     {
         public string DisplayName { get; set; }
