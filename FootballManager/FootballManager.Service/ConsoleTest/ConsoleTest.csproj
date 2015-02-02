@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Wcf">
+      <HintPath>..\packages\Autofac.Wcf.3.0.1\lib\net40\Autofac.Integration.Wcf.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -71,10 +77,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ioc\LightInjectContainerAdapter.cs" />
-    <Compile Include="Ioc\Modules\DataServiceModule.cs" />
-    <Compile Include="Ioc\Modules\EntityFrameworkModule.cs" />
-    <Compile Include="Ioc\Modules\RepositoryModule.cs" />
+    <Compile Include="AutofacModules\DataServiceModule.cs" />
+    <Compile Include="AutofacModules\EntityFrameworkModule.cs" />
+    <Compile Include="AutofacModules\RepositoryModule.cs" />
+    <Compile Include="AutofacModules\WcfServiceModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

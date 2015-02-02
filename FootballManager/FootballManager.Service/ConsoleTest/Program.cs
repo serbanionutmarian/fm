@@ -13,74 +13,55 @@ using DataModel;
 using ServiceStack;
 using System.ServiceModel;
 using LightInject;
-using SSService.Ioc;
-using SSService.Ioc.Modules;
 using Dto.Auth.Request;
 using Dto.Auth.Response;
 using System.Reflection;
 using DataModel.Player;
+using Autofac;
+using WcfService.AutofacModules;
 
 namespace ConsoleTest
 {
-    class MyClass
-    {
-        public int MyProperty { get; set; }
-    }
     class Program
     {
 
         static void Main(string[] args)
         {
-            //var restClient = new JsonServiceClient("http://localhost:62333");
-            //var res = restClient.Post<SignupResponse>(new SignupRequest()
-            //    {
-            //        CountryId = 1,
-            //        DisplayName = "Ionut S.",
-            //        Email = "serban..",
-            //        Password = ".."
-            //    });
-            RegisterUsingIoc(container =>
-            {
-                var teamTactic = container.GetInstance<ITeamService>();
-                var result = teamTactic.GetAll().ToList();
+            Database.SetInitializer<DbManagerContext>(null);
+            RunUsingIoc(RunMethod);
+        }
 
-                var service = container.GetInstance<IDataGeneratorService>();
 
-                Monitor(() =>
-                {
-                    service.AddLeagesToAllCountries();
-                });
+        private static void RunMethod(ILifetimeScope scope)
+        {
+            //var service = scope.Resolve<IAuthService>();
+            //service.SignUp(new SignupDto() { 
+            //    DisplayName="Ionut S.",
+            //    Email="serban.ionut.marian@gmail.com",
+            //    Password="test..."
+            //});
+
+            //var service = scope.Resolve<IDataGeneratorService>();
+            //service.AddLeagesToAllCountries();
+
+            var service = scope.Resolve<IAuthService>();
+            service.SignUp(new SignupRequest() { 
             });
+            ///2288
         }
 
-        private static void RegisterUsingIoc(Action<ServiceContainer> action)
+        private static void RunUsingIoc(Action<ILifetimeScope> action)
         {
-            using (var container = new ServiceContainer())
-            {
-                container.RegisterFrom<DataServiceModule>();
-                container.RegisterFrom<RepositoryModule>();
-                container.RegisterFrom<EntityFrameworkModule>();
-                using (container.BeginScope())
-                {
-                    action(container);
-                }
-            }
-        }
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new RepositoryModule());
+            builder.RegisterModule(new DataServiceModule());
+            builder.RegisterModule(new EntityFrameworkModule());
 
-        public static void Monitor(Action action, string testName = "test", int count = 1)
-        {
-            Console.WriteLine(testName);
-            var start = DateTime.Now;
-            for (int i = 0; i < count; i++)
+            using (var container = builder.Build())
+            using (var scope = container.BeginLifetimeScope())
             {
-                var start1 = DateTime.Now;
-                action();
-                if (count > 1)
-                {
-                    Console.WriteLine(string.Format("{2}.Test for {0}:{1}", testName, DateTime.Now - start1, i));
-                }
+                action(scope);
             }
-            Console.WriteLine(string.Format("Test for {0}:{1}", testName, DateTime.Now - start));
         }
     }
 }
