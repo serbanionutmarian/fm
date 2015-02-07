@@ -1,8 +1,7 @@
 ﻿using LightInject;
-using ServiceStack;
+using ServiceStack.WebHost.Endpoints;
 using SSService.Ioc;
 using SSService.Ioc.Modules;
-using System.Reflection;
 
 namespace SSService.Config
 {
@@ -12,6 +11,7 @@ namespace SSService.Config
         public AppHost()
             : base("Web Service", typeof(AppHost).Assembly)
         {
+            
         }
 
         public override void Configure(Funq.Container container)

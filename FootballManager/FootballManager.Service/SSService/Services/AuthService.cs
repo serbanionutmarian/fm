@@ -1,11 +1,7 @@
 ﻿using DataService.Interfaces;
 using Dto.Auth.Request;
 using Dto.Auth.Response;
-using ServiceStack;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using ServiceStack.ServiceInterface;
 
 namespace SSService.Services
 {
@@ -17,7 +13,6 @@ namespace SSService.Services
         {
             _service = service;
         }
-
         public SignupResponse Post(SignupRequest request)
         {
             return _service.SignUp(request);
