@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Autofac;
 using Repository;
 using DataModel;
+using LightInject;
 
 namespace WcfService.AutofacModules
 {
-    public class EntityFrameworkModule : Autofac.Module
+    public class EntityFrameworkModule : ICompositionRoot
     {
-        protected override void Load(ContainerBuilder builder)
+        public void Compose(IServiceRegistry serviceRegistry)
         {
-            builder.RegisterModule(new RepositoryModule());
-
-            builder.RegisterType(typeof(DbManagerContext)).As(typeof(DbContext)).InstancePerLifetimeScope();
-            builder.RegisterType(typeof(UnitOfWork)).As(typeof(IUnitOfWork)).InstancePerLifetimeScope();
+            serviceRegistry.Register<DbContext, DbManagerContext>(new PerScopeLifetime());
+            serviceRegistry.Register<IUnitOfWork, UnitOfWork>(new PerScopeLifetime());
         }
     }
 }

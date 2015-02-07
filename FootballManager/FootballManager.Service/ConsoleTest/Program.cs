@@ -17,51 +17,76 @@ using Dto.Auth.Request;
 using Dto.Auth.Response;
 using System.Reflection;
 using DataModel.Player;
-using Autofac;
 using WcfService.AutofacModules;
+using System.ServiceModel.Channels;
+using System.Net;
 
 namespace ConsoleTest
 {
     class Program
     {
+        private static string cookie = null;
 
         static void Main(string[] args)
         {
+            //Login();
+            //Ping();
+
             Database.SetInitializer<DbManagerContext>(null);
-            RunUsingIoc(RunMethod);
+            RegisterUsingIoc(RunMethod);
         }
 
-
-        private static void RunMethod(ILifetimeScope scope)
+        private static void RunMethod(ServiceContainer container)
         {
-            //var service = scope.Resolve<IAuthService>();
-            //service.SignUp(new SignupDto() { 
-            //    DisplayName="Ionut S.",
-            //    Email="serban.ionut.marian@gmail.com",
-            //    Password="test..."
-            //});
-
-            //var service = scope.Resolve<IDataGeneratorService>();
-            //service.AddLeagesToAllCountries();
-
-            var service = scope.Resolve<IAuthService>();
-            service.SignUp(new SignupRequest() { 
-            });
-            ///2288
+            var service = container.GetInstance<IAuthService>();
+            var response = service.SignUp(new SignupRequest()
+               {
+               });
         }
+        //static void Login()
+        //{
+        //    TestServices.AuthenticationServiceClient client = new TestServices.AuthenticationServiceClient();
+        //    using (new OperationContextScope(client.InnerChannel))
+        //    {
+        //        bool result = client.Login("ionut", "123", string.Empty, false);
+        //        var responseMessageProperty = (HttpResponseMessageProperty)
+        //             OperationContext.Current.IncomingMessageProperties[HttpResponseMessageProperty.Name];
 
-        private static void RunUsingIoc(Action<ILifetimeScope> action)
+        //        if (result)
+        //        {
+        //            cookie = responseMessageProperty.Headers.Get("Set-Cookie");
+        //        }
+        //    }
+        //}
+
+        private static void RegisterUsingIoc(Action<ServiceContainer> action)
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new RepositoryModule());
-            builder.RegisterModule(new DataServiceModule());
-            builder.RegisterModule(new EntityFrameworkModule());
-
-            using (var container = builder.Build())
-            using (var scope = container.BeginLifetimeScope())
+            using (var container = new ServiceContainer())
             {
-                action(scope);
+                container.RegisterFrom<DataServiceModule>();
+                container.RegisterFrom<RepositoryModule>();
+                container.RegisterFrom<EntityFrameworkModule>();
+                using (container.BeginScope())
+                {
+                    action(container);
+                }
             }
         }
+
+        //static void Ping()
+        //{
+        //    ServiceReference1dd.Service1Client client = new ServiceReference1dd.Service1Client();
+
+        //    using (new OperationContextScope(client.InnerChannel))
+        //    {
+
+        //        HttpRequestMessageProperty request = new HttpRequestMessageProperty();
+        //        request.Headers[HttpResponseHeader.SetCookie] = cookie;
+        //        OperationContext.Current.OutgoingMessageProperties
+        //                 [HttpRequestMessageProperty.Name] = request;
+
+        //        var result = client.DoWork(10);
+        //    }
+        //}
     }
 }

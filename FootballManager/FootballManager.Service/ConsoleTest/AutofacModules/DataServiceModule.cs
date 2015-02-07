@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using Autofac;
 using DataService;
 using DataService.Interfaces;
+using LightInject;
 
 namespace WcfService.AutofacModules
 {
-    public class DataServiceModule : Autofac.Module
+    public class DataServiceModule : ICompositionRoot
     {
-        protected override void Load(ContainerBuilder builder)
+        public void Compose(IServiceRegistry serviceRegistry)
         {
-            builder.RegisterAssemblyTypes(Assembly.Load("DataService"))
-                      .Where(t => t.Name.EndsWith("Service"))
-                      .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-
+            serviceRegistry.RegisterAssembly(Assembly.Load("DataService"),
+                () => new PerScopeLifetime(),
+                (serviceType, implementingType) => serviceType.Name.EndsWith("Service"));
         }
     }
 }
