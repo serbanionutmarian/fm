@@ -85,10 +85,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ioc\DataServiceModule.cs" />
-    <Compile Include="Ioc\EntityFrameworkModule.cs" />
-    <Compile Include="Ioc\RepositoryModule.cs" />
-    <Compile Include="Ioc\WcfServiceModule.cs" />
+    <Compile Include="Ioc\Modules\DataServiceModule.cs" />
+    <Compile Include="Ioc\Modules\EntityFrameworkModule.cs" />
+    <Compile Include="Ioc\Modules\RepositoryModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
