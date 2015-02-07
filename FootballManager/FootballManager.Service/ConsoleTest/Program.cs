@@ -17,9 +17,9 @@ using Dto.Auth.Request;
 using Dto.Auth.Response;
 using System.Reflection;
 using DataModel.Player;
-using WcfService.AutofacModules;
 using System.ServiceModel.Channels;
 using System.Net;
+using ConsoleTest.Ioc.Modules;
 
 namespace ConsoleTest
 {
