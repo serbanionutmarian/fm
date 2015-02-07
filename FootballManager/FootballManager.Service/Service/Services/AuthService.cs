@@ -26,6 +26,10 @@ namespace DataService.Services
 
         public SignupResponse SignUp(SignupRequest request)
         {
+            return new SignupResponse()
+            {
+                Result = request.DisplayName + "..hmm"
+            };
             // TO DO!! (when we'll add countries in UI)
             if (request.CountryId == 0)
             {
