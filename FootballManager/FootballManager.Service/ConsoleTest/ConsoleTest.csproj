@@ -85,10 +85,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacModules\DataServiceModule.cs" />
-    <Compile Include="AutofacModules\EntityFrameworkModule.cs" />
-    <Compile Include="AutofacModules\RepositoryModule.cs" />
-    <Compile Include="AutofacModules\WcfServiceModule.cs" />
+    <Compile Include="Ioc\DataServiceModule.cs" />
+    <Compile Include="Ioc\EntityFrameworkModule.cs" />
+    <Compile Include="Ioc\RepositoryModule.cs" />
+    <Compile Include="Ioc\WcfServiceModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -114,12 +114,7 @@
       <Name>DataService</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Ioc\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
