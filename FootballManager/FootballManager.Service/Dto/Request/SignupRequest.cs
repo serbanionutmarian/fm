@@ -1,5 +1,5 @@
 ﻿using Dto.Auth.Response;
-using ServiceStack;
+using ServiceStack.ServiceHost;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +8,16 @@ using System.Text;
 
 namespace Dto.Auth.Request
 {
-    [DataContract]
-    public class SignupRequest
+    [Route("/signup")]
+    [Route("/signup", Verbs = "POST")]
+    public class SignupRequest : IReturn<SignupResponse>
     {
-        [DataMember]
         public string DisplayName { get; set; }
 
-        [DataMember]
         public int CountryId { get; set; }
 
-        [DataMember]
         public string Password { get; set; }
 
-        [DataMember]
         public string Email { get; set; }
     }
 }
