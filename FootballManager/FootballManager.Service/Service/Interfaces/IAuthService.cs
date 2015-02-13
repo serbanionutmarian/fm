@@ -1,4 +1,5 @@
-﻿using Dto.Auth.Request;
+﻿using DataModel.Tables;
+using Dto.Auth.Request;
 using Dto.Auth.Response;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace DataService.Interfaces
     public interface IAuthService
     {
         SignupResponse SignUp(SignupRequest request);
+
+        bool TryAuthenticate(string userName, string password, out User user);
     }
 }

@@ -58,5 +58,12 @@ namespace DataService.Services
 
             return null;
         }
+
+
+        public bool TryAuthenticate(string email, string password, out DataModel.Tables.User user)
+        {
+            user = _userRepository.GetBy(email, password);
+            return user != null;
+        }
     }
 }
