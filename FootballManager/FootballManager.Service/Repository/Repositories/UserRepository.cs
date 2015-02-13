@@ -21,5 +21,11 @@ namespace Repository.Repositories
         {
             return _dbset.Include(user => user.Team).Single(user => user.Id == userId);
         }
+
+
+        public User GetBy(string email, string password)
+        {
+            return _dbset.SingleOrDefault(user => user.Email == email && user.Password == password);
+        }
     }
 }

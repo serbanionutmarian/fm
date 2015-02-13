@@ -10,5 +10,7 @@ namespace Repository.Interfaces
     public interface IUserRepository: IGenericRepository<User>
     {
         User GetById(int userId);
+
+        User GetBy(string email, string password);
     }
 }
