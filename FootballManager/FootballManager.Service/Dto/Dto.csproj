@@ -64,9 +64,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\SignupRequest.cs" />
     <Compile Include="Response\SignupResponse.cs" />
+    <Compile Include="ServiceCredentials.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
