@@ -83,6 +83,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -106,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\AppHost.cs" />
+    <Compile Include="Config\EFCredentialsAuthProvider.cs" />
+    <Compile Include="Config\CustomAuthUserSession.cs" />
     <Compile Include="Ioc\LightInjectContainerAdapter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -113,11 +116,15 @@
     <Compile Include="Ioc\Modules\DataServiceModule.cs" />
     <Compile Include="Ioc\Modules\EntityFrameworkModule.cs" />
     <Compile Include="Ioc\Modules\RepositoryModule.cs" />
+    <Compile Include="LightInjectHelper.cs" />
+    <Compile Include="OwnTeamAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceBase.cs" />
     <Compile Include="Services\AuthService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -156,9 +163,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>63788</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62333/</IISUrl>
+          <IISUrl>http://localhost:62333</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
