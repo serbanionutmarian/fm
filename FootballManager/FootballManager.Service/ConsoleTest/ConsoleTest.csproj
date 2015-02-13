@@ -108,9 +108,17 @@
       <Project>{86860e09-5c66-41a9-b1a7-7c40000abc95}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceCaller\ServiceCaller.csproj">
+      <Project>{bbd252f7-b02f-45ad-b31a-14d28bbe368f}</Project>
+      <Name>ServiceCaller</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Service\DataService.csproj">
       <Project>{446a48e4-6b86-4eb6-b25b-8678bb8b2db1}</Project>
       <Name>DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SSService\SSService.csproj">
+      <Project>{3f5731db-4d9d-4d7d-985d-dd9344c8f4ff}</Project>
+      <Name>SSService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

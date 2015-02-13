@@ -20,44 +20,42 @@ using DataModel.Player;
 using System.ServiceModel.Channels;
 using System.Net;
 using ConsoleTest.Ioc.Modules;
+using ServiceStack.ServiceClient.Web;
+using Dto;
 
 namespace ConsoleTest
 {
     class Program
     {
-        private static string cookie = null;
-
         static void Main(string[] args)
         {
-            //Login();
-            //Ping();
-
             Database.SetInitializer<DbManagerContext>(null);
-            RegisterUsingIoc(RunMethod);
+            RegisterUsingIoc((sc) =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Monitor(() => RunMethod(sc));
+                }
+            });
         }
 
         private static void RunMethod(ServiceContainer container)
         {
-            var service = container.GetInstance<IAuthService>();
-            var response = service.SignUp(new SignupRequest()
-               {
-               });
+            ServiceCredentials.Instance.Init("test", "123");
+            var service = new ServiceCaller.Services.AuthService();
+            service.SignUp(new SignupRequest()
+            {
+                DisplayName = "a",
+                TeamId = 2281
+            });
         }
-        //static void Login()
-        //{
-        //    TestServices.AuthenticationServiceClient client = new TestServices.AuthenticationServiceClient();
-        //    using (new OperationContextScope(client.InnerChannel))
-        //    {
-        //        bool result = client.Login("ionut", "123", string.Empty, false);
-        //        var responseMessageProperty = (HttpResponseMessageProperty)
-        //             OperationContext.Current.IncomingMessageProperties[HttpResponseMessageProperty.Name];
 
-        //        if (result)
-        //        {
-        //            cookie = responseMessageProperty.Headers.Get("Set-Cookie");
-        //        }
-        //    }
-        //}
+        private static void Monitor(Action action)
+        {
+            var start = DateTime.Now;
+            action();
+            Console.WriteLine(DateTime.Now - start);
+        }
 
         private static void RegisterUsingIoc(Action<ServiceContainer> action)
         {
@@ -72,21 +70,5 @@ namespace ConsoleTest
                 }
             }
         }
-
-        //static void Ping()
-        //{
-        //    ServiceReference1dd.Service1Client client = new ServiceReference1dd.Service1Client();
-
-        //    using (new OperationContextScope(client.InnerChannel))
-        //    {
-
-        //        HttpRequestMessageProperty request = new HttpRequestMessageProperty();
-        //        request.Headers[HttpResponseHeader.SetCookie] = cookie;
-        //        OperationContext.Current.OutgoingMessageProperties
-        //                 [HttpRequestMessageProperty.Name] = request;
-
-        //        var result = client.DoWork(10);
-        //    }
-        //}
     }
 }
