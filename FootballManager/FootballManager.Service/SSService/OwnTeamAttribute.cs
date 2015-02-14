@@ -31,7 +31,7 @@ namespace SSService.Config
             if (session.TeamId.HasValue && session.TeamId.Value != dto.TeamId)
             {
                 res.StatusCode = 0x193;
-                res.StatusDescription = "Invalid Role:" + dto.TeamId + "." + session.TeamId.Value;
+                res.StatusDescription = "Invalid Role";
                 res.EndRequest(false);
             }
         }

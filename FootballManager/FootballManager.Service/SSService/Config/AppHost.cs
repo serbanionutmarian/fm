@@ -1,13 +1,12 @@
 ﻿using DataModel.Tables;
 using DataService.Interfaces;
+using Ioc;
 using LightInject;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
-using SSService.Ioc;
-using SSService.Ioc.Modules;
 using System.Globalization;
 
 namespace SSService.Config
@@ -37,17 +36,13 @@ namespace SSService.Config
 
         private ServiceContainer RegisterIoc(Funq.Container container)
         {
-            var serviceContainer = new ServiceContainer();
+            container.Adapter = LightInjectContainer.Adapter;
 
-            container.Adapter = LightInjectHelper.Init(serviceContainer);
+            var lightInjectContainer = LightInjectContainer.Container;
+            lightInjectContainer.Register<IAuthProvider, EFCredentialsAuthProvider>(new PerScopeLifetime());
+            lightInjectContainer.EnablePerWebRequestScope();
 
-            serviceContainer.Register<IAuthProvider, EFCredentialsAuthProvider>(new PerScopeLifetime());
-            serviceContainer.RegisterFrom<DataServiceModule>();
-            serviceContainer.RegisterFrom<RepositoryModule>();
-            serviceContainer.RegisterFrom<EntityFrameworkModule>();
-            serviceContainer.EnablePerWebRequestScope();
-
-            return serviceContainer;
+            return lightInjectContainer;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DataModel.Tables;
 using DataService.Interfaces;
+using Ioc;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using System;
@@ -14,7 +15,7 @@ namespace SSService.Config
     {
         public override bool TryAuthenticate(IServiceBase authService, string userName, string password)
         {
-            var authEF = LightInjectHelper.Adapter.Resolve<IAuthService>();
+            var authEF = LightInjectContainer.Adapter.Resolve<IAuthService>();
             CustomAuthUserSession to = authService.GetSession(false) as CustomAuthUserSession;
             User user = null;
             if (!authEF.TryAuthenticate(userName, password, out user))
