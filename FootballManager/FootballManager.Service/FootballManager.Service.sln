@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfService", "WcfService\Wc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceCaller", "ServiceCaller\ServiceCaller.csproj", "{BBD252F7-B02F-45AD-B31A-14D28BBE368F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ioc", "Ioc\Ioc.csproj", "{3105B687-F212-467B-89AC-76CE51E5C888}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -124,6 +126,16 @@ Global
 		{BBD252F7-B02F-45AD-B31A-14D28BBE368F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BBD252F7-B02F-45AD-B31A-14D28BBE368F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BBD252F7-B02F-45AD-B31A-14D28BBE368F}.Release|x86.ActiveCfg = Release|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3105B687-F212-467B-89AC-76CE51E5C888}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
