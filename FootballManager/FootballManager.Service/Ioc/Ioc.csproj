@@ -73,6 +73,8 @@
   <ItemGroup>
     <Compile Include="LightInjectAdapter.cs" />
     <Compile Include="LightInjectContainer.cs" />
+    <Compile Include="Modules\EntityFrameworkModule.cs" />
+    <Compile Include="Modules\RepositoryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
