@@ -85,9 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ioc\Modules\DataServiceModule.cs" />
-    <Compile Include="Ioc\Modules\EntityFrameworkModule.cs" />
-    <Compile Include="Ioc\Modules\RepositoryModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,6 +96,10 @@
     <ProjectReference Include="..\Dto\Dto.csproj">
       <Project>{f707c2dc-3ec1-41ce-a0a9-ca511f06e020}</Project>
       <Name>Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ioc\Ioc.csproj">
+      <Project>{3105b687-f212-467b-89ac-76ce51e5c888}</Project>
+      <Name>Ioc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\DataModel.csproj">
       <Project>{8d93c360-d06c-4af9-906e-928df1710566}</Project>

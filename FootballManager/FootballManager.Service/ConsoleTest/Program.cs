@@ -19,9 +19,9 @@ using System.Reflection;
 using DataModel.Player;
 using System.ServiceModel.Channels;
 using System.Net;
-using ConsoleTest.Ioc.Modules;
 using ServiceStack.ServiceClient.Web;
 using Dto;
+using Ioc;
 
 namespace ConsoleTest
 {
@@ -30,24 +30,21 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             Database.SetInitializer<DbManagerContext>(null);
-            RegisterUsingIoc((sc) =>
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    Monitor(() => RunMethod(sc));
-                }
-            });
+            RegisterUsingIoc(RunMethod);
         }
 
         private static void RunMethod(ServiceContainer container)
         {
-            ServiceCredentials.Instance.Init("test", "123");
-            var service = new ServiceCaller.Services.AuthService();
-            service.SignUp(new SignupRequest()
-            {
-                DisplayName = "a",
-                TeamId = 2281
-            });
+            var gg = container.GetInstance<DataService.Jobs.Items.TacticJobExecutionService>();
+            gg.Execute();            
+
+            //ServiceCredentials.Instance.Init("test", "123");
+            //var service = new ServiceCaller.Services.AuthService();
+            //service.SignUp(new SignupRequest()
+            //{
+            //    DisplayName = "a",
+            //    TeamId = 2281
+            //});
         }
 
         private static void Monitor(Action action)
@@ -59,15 +56,10 @@ namespace ConsoleTest
 
         private static void RegisterUsingIoc(Action<ServiceContainer> action)
         {
-            using (var container = new ServiceContainer())
+            using (var container = LightInjectContainer.Container)
+            using (container.BeginScope())
             {
-                container.RegisterFrom<DataServiceModule>();
-                container.RegisterFrom<RepositoryModule>();
-                container.RegisterFrom<EntityFrameworkModule>();
-                using (container.BeginScope())
-                {
-                    action(container);
-                }
+                action(container);
             }
         }
     }
