@@ -30,6 +30,8 @@ namespace DataModel
 
         public DbSet<Match> Matches { get; set; }
 
+        public DbSet<Job> Jobs { get; set; }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
