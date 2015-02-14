@@ -1,24 +1,19 @@
-﻿using DataModel;
-using DataModel.Player;
+﻿using DataModel.Player;
 using DataModel.Tables;
-using DataService.Interfaces;
 using Repository;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace DataService.Services
+namespace DataService.Jobs.Items
 {
-    public class DataGeneratorService : IDataGeneratorService
+    public class SeriesGeneratorJobExecutionService : JobExecutionBase
     {
-        #region ctor and props
+         #region ctor and props
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITeamRepository _teamRepository;
@@ -97,7 +92,7 @@ namespace DataService.Services
             }
         }
 
-        public DataGeneratorService(
+        public SeriesGeneratorJobExecutionService(
             IUnitOfWork unitOfWork,
             ITeamRepository teamRepository,
             ILeagesConfigurationRepository leagesConfigurationRepository,
@@ -113,47 +108,21 @@ namespace DataService.Services
 
         #endregion
 
-        /// <summary>
-        /// iterate throw all countries and add it required new leages
-        /// </summary>
-        public void AddLeagesToAllCountries()
+        public override void Execute()
         {
-            using (var transaction = new TransactionScope(TransactionScopeOption.Required, new TimeSpan(2, 0, 0)))
+             using (var transaction = new TransactionScope(TransactionScopeOption.Required, new TimeSpan(2, 0, 0)))
             {
                 var leagesConfigurations = _leagesConfigurationRepository.GetAll();
                 var countries = _countryRepository.GetAll();
                 foreach (var country in countries)
                 {
-                    AddLeagesToCountry(leagesConfigurations, country);
+                    ExecutePerCountry(leagesConfigurations, country);
                 }
                 transaction.Complete();
-            }
+             }
         }
-        //test bulk inset
-        //private static void PerformBulkCopy()
-        //{
-        //    string connectionString = @"Data Source=VM-NET2013\SQLEXPRESS;Initial Catalog=FootballManager;Integrated Security=True";
-        //    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString))
-        //    {
-        //        bulkCopy.BatchSize = 500;
-        //        bulkCopy.DestinationTableName = "PlayersAttributesValues";
-        //        var data = new List<DataRow>();
-        //        DataTable table = new DataTable();
-        //        table.Columns.Add("PlayerId");
-        //        table.Columns.Add("AttributeId");
-        //        table.Columns.Add("Value");
-        //        for (int i = 0; i < 1000 * 1000; i++)
-        //        {
-        //            var row = table.NewRow();
-        //            row["PlayerId"] = 30150;
-        //            row["AttributeId"] = i + 1000 * 1000;
-        //            row["Value"] = i;
-        //            table.Rows.Add(row);
-        //        }
-        //        bulkCopy.WriteToServer(table);
-        //    }
-        //}
-        private void AddLeagesToCountry(IEnumerable<DataModel.Tables.LeagesConfiguration> leagesConfigurations, DataModel.Tables.Country country)
+
+        private void ExecutePerCountry(IEnumerable<DataModel.Tables.LeagesConfiguration> leagesConfigurations, DataModel.Tables.Country country)
         {
             if (country.NrOfLeagesToAdd == 0)
             {
