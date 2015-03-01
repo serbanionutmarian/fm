@@ -208,6 +208,13 @@ namespace Gameplay
 		FIELD_SIDE_NUM,
 	}
 
+    enum GeneralFieldSide
+    {
+        GENERAL_FIELDSIDE_LEFT,
+        GENERAL_FIELDSIDE_RIGHT,
+        GENERAL_FIELDSIDE_CENTER,
+        GENERAL_FIELDSIDE_NUM,
+    }
 
 	public class Player //: ISerializable
 	{
@@ -249,11 +256,6 @@ namespace Gameplay
 		public TeamController()
 		{
 			mAllPlayers.Capacity = 30;
-		}
-
-		public void SelectBestTeam()
-		{
-			// TODO !
 		}
 
 		public void Reset()

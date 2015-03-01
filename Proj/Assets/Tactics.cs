@@ -79,6 +79,7 @@ public enum TacticType
 {
 	TACTIC_442,
 	TACTIC_4312,
+    TACTIC_352,
 	TACTIC_NUM,
 }
 
@@ -116,7 +117,7 @@ public class TeamTactics
 	public int[] mSelectedMatchPlayers; // Check mTacticDesc[TACTIC] to see the positions
 	public int   mCurrentTacticIndex 		= -1;
 
-	public static string[] mTacticName = new string[] { "4-4-2", "4-3-1-2" };
+	public static string[] mTacticName = new string[] { "4-4-2", "4-3-1-2", "3-5-2" };
 	public static TacticPosDescription[][] mTacticDesc = new TacticPosDescription[(int)TacticType.TACTIC_NUM][]
 	{
 		new TacticPosDescription[mNumTotalPlayers]
@@ -162,6 +163,29 @@ public class TeamTactics
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S6, FieldSideTactic.FIELD_SIDET_C, 	"s6"),
 			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S7, FieldSideTactic.FIELD_SIDET_C, 	"S7"),
 		},
+
+        new TacticPosDescription[mNumTotalPlayers]
+		{
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_GK, FieldSideTactic.FIELD_SIDET_C, 	"GK"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_L, 	"DL"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_CL, "DC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_D, 	FieldSideTactic.FIELD_SIDET_CR, "DR"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_L, 	"ML"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_CL,	"MC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M,	FieldSideTactic.FIELD_SIDET_C, 	"MC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M, 	FieldSideTactic.FIELD_SIDET_CR, "MC"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_M,	FieldSideTactic.FIELD_SIDET_R,  "MR"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_CL,	"ST"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_F, 	FieldSideTactic.FIELD_SIDET_CR,	"ST"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S1, FieldSideTactic.FIELD_SIDET_C, 	"S1"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S2, FieldSideTactic.FIELD_SIDET_C, 	"S2"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S3, FieldSideTactic.FIELD_SIDET_C, 	"S3"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S4, FieldSideTactic.FIELD_SIDET_C, 	"S4"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S5, FieldSideTactic.FIELD_SIDET_C, 	"S5"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S6, FieldSideTactic.FIELD_SIDET_C, 	"s6"),
+			new TacticPosDescription(FieldLineTactic.FIELD_LINE_S7, FieldSideTactic.FIELD_SIDET_C, 	"S7"),
+		},
+
 	};
 }
 

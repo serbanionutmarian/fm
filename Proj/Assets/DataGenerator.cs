@@ -205,7 +205,8 @@ namespace Gameplay
 				}
 			}
 
-			club.mTeam.SelectBestTeam ();
+            DataGenerator.GenerateTacticsForClub(club);
+            DataGenerator.GenerateTeamSelectionForClub(club);
 			//-----------------------------------
 		}
 
@@ -308,6 +309,168 @@ namespace Gameplay
 			//---------
 		}
 		//------------------------------------------------------------------------------------------------------------
+
+
+        // TACTICS AND TEAM SELECTION 
+        //------------------------------------------------------------------------------------------------------------
+        public static bool[][] mHasGeneralType = new bool[(int)GeneralFieldSide.GENERAL_FIELDSIDE_NUM][]
+        {
+            // LEFT
+            new bool[(int)FieldSide.FIELD_SIDE_NUM] {true, false, false, true, false, true, true},
+            new bool[(int)FieldSide.FIELD_SIDE_NUM] {false, true, false, false,true,  true, true},
+            new bool[(int)FieldSide.FIELD_SIDE_NUM] {false,false, true, true, true, false, true},        
+        };
+
+        static public bool IsPlayerInHisBestFieldSide(FieldSide playerSide, FieldSide requestedFieldSide)
+        {
+            // Check if the player original field side and the requested field side has any common side (left, right or center)
+            for (int i = 0; i < (int)FieldSide.FIELD_SIDE_NUM; i++)
+                if (mHasGeneralType[i][(int)playerSide] == true
+                    && mHasGeneralType[i][(int)requestedFieldSide] == true)
+                {
+                    return true;
+                }
+
+            return false;
+        }
+
+        static PlayerAttributesAverages GetAverageEnumByFieldPos(FieldPos fieldPos)
+        {
+            // We could use a table to map values but PlayerAttributesAverages will have more than fieldPos.NUM values...
+            switch(fieldPos)
+            { 
+                case FieldPos.FIELD_POS_ATT:
+                    return PlayerAttributesAverages.ATTR_AVG_ATT;
+                case FieldPos.FIELD_POS_DEF:
+                    return PlayerAttributesAverages.ATTR_AVG_DEF;
+                case FieldPos.FIELD_POS_GK:
+                    return PlayerAttributesAverages.ATTR_AVG_GK;
+                case FieldPos.FIELD_POS_MID:
+                    return PlayerAttributesAverages.ATTR_AVG_MID;
+                default:
+                    System.Diagnostics.Debug.Assert(false);                  
+                    return PlayerAttributesAverages.ATTR_AVG_MID;
+            }
+        }
+
+        static public float GetScoreForPlayerInPosition(Player player, FieldPos fieldPos, FieldSide fieldSide, MidfielderPos midfielderPos)
+        {
+            float overallQualityForPosition = 0.25f * player.mAttributes.GetAvg(PlayerAttributesAverages.ATTR_AVG_PHYS)
+                                                  + 0.55f * player.mAttributes.GetAvg(GetAverageEnumByFieldPos(fieldPos))
+                                                  + 0.20f * player.mAttributes.GetAvg(GetAverageEnumByFieldPos(player.mFieldPos)); // Even if you put ronaldo in defense he will have a boost because he was good in his original position..
+
+            float penaltyBecauseOfWrongFieldSide = (IsPlayerInHisBestFieldSide(player.mFieldSide, fieldSide) ? 1.0f : 0.8f);
+            float res = overallQualityForPosition * penaltyBecauseOfWrongFieldSide;
+
+            return res;
+        }
+
+        // TODO: improve this because it's not 1:1 DM is not the same with D or M
+        static FieldPos ConvertFromFieldLineToFieldPos(FieldLineTactic fieldLine)
+        { 
+            switch(fieldLine)
+            {
+                case FieldLineTactic.FIELD_LINE_GK:
+                    return FieldPos.FIELD_POS_GK;
+
+                case FieldLineTactic.FIELD_LINE_D:
+                    return FieldPos.FIELD_POS_DEF;
+
+                case FieldLineTactic.FIELD_LINE_DM:
+                case FieldLineTactic.FIELD_LINE_M:
+                    return FieldPos.FIELD_POS_MID;
+
+                case FieldLineTactic.FIELD_LINE_F:
+                case FieldLineTactic.FIELD_LINE_AM:
+                    return FieldPos.FIELD_POS_ATT;
+
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    return FieldPos.FIELD_POS_MID;
+            }
+        }
+
+        //###
+        // TODO: we must generate a perfect model first then apply error:
+        //                  - create a bipartite match from players to positions and apply a min-cost max flow algorithm
+        //                  - select the tactic that has the highest score
+        //   Because of the omega complexity this is dropped and i just randomize the tactic and apply a greedy solution for team selection
+        // Usually tactics should be generated at a certain amount of time, not every day
+        static public void GenerateTacticsForClub(Club club)
+        {
+
+            club.mTactics.mCurrentTacticIndex = GameDatabase.Instance.mRandomGenerator.Next(0, (int)(TacticType.TACTIC_NUM - 1));
+        }
+
+        static public void GenerateTeamSelectionForClub(Club club)
+        {
+            if (club.mTeam.mAllPlayers.Count < TeamTactics.mNumTotalPlayers)
+            {
+                System.Diagnostics.Debug.Assert(false, "We need a minimum of " + TeamTactics.mNumTotalPlayers + " of available players to cover positions ");
+                // TODO check injuries and other things...
+
+                return;
+            }
+
+            TacticPosDescription[] posDesc = TeamTactics.mTacticDesc[club.mTactics.mCurrentTacticIndex];
+
+            // Can be improved to O(N) but O(NlogN) it's enough, number of players is very small when log N
+            // If improvements are needed: we can consider the indices of the player in the order they appear in the list and make an s[i] = 1 if player index i was selected
+            HashSet<int> selectedPlayers = new HashSet<int>(); 
+
+            // Select first 11
+            for (int i = 0; i < TeamTactics.mNumPlayersOnField; i++)
+            {
+                FieldPos requestedFieldPos      = ConvertFromFieldLineToFieldPos(posDesc[i].mLine);
+                FieldSide requestedFieldSide    = (FieldSide) posDesc[i].mSide; // TODO: this conversion is not very good :)
+
+                int bestPlayerId                = -1;
+                float highestPlayerScore        = -1.0f;
+
+                // Find the best player who can fit this position
+                foreach (int playerId in club.mTeam.mAllPlayers)
+                {
+                    if (selectedPlayers.Contains(playerId))
+                        continue;
+
+                    Player player = GameDatabase.Instance.GetPlayer(playerId);
+
+                    if (player == null)
+                    {
+                        System.Diagnostics.Debug.Assert(false, ("player id " + playerId + " is null "));
+                    }
+
+                    float score = GetScoreForPlayerInPosition(player, requestedFieldPos, requestedFieldSide, MidfielderPos.MID_POS_M); // Last param doesn't matter now...
+                    if (score > highestPlayerScore)
+                    {
+                        highestPlayerScore = score;
+                        bestPlayerId = playerId;
+                    }
+                }
+
+                if (bestPlayerId == -1)
+                {
+                    System.Diagnostics.Debug.Assert(false, "Couldn't select any player for this position. Index " + i + " Aborting operation");
+                    return;
+                }
+
+                club.mTactics.mSelectedMatchPlayers[i] = bestPlayerId;
+                selectedPlayers.Add(bestPlayerId);  // Mark as selected..
+            }
+
+            // Dummy selection of reserves...TODO: we need to check which positions we need to cover depending on the tactics...
+            for (int resId = TeamTactics.mNumPlayersOnField; resId < TeamTactics.mNumTotalPlayers; resId++)
+            {
+                foreach (int playerId in club.mTeam.mAllPlayers)
+                {
+                     if (!selectedPlayers.Contains(playerId))
+                     {
+                         club.mTactics.mSelectedMatchPlayers[resId] = playerId;
+                     }
+                }
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------
 	}
 }
 
