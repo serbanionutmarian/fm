@@ -27,16 +27,46 @@ namespace ConsoleTest
 {
     class Program
     {
+        static void Do()
+        {
+            throw new Exception("ssds");
+        }
         static void Main(string[] args)
         {
+            //try
+            //{
+            //    Do();
+            //}
+            //catch (Exception ex)
+            //{
+            //    //CreatedAt
+            //    //ex.Message;
+            //    //ex.Source;
+            //    //ex.StackTrace;
+
+            //}
+            var service = new ServiceCaller.Services.AuthService();
+            var response = service.SignUp(new SignupRequest()
+              {
+                  CountryId = 0,
+                  DisplayName = "sds",
+                  Email = "sad",
+                  Password = "sd"
+              });
+
             Database.SetInitializer<DbManagerContext>(null);
             RegisterUsingIoc(RunMethod);
         }
 
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+
+        }
+
         private static void RunMethod(ServiceContainer container)
         {
-            var gg = container.GetInstance<DataService.Jobs.Items.TacticJobExecutionService>();
-            gg.Execute();            
+            var gg = container.GetInstance<IJobService>();
+            gg.Do();
 
             //ServiceCredentials.Instance.Init("test", "123");
             //var service = new ServiceCaller.Services.AuthService();

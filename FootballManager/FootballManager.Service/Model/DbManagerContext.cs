@@ -32,6 +32,8 @@ namespace DataModel
 
         public DbSet<Job> Jobs { get; set; }
 
+        public DbSet<Log> Logs { get; set; }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

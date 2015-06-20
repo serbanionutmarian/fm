@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dto.Auth.Response
 {
-    public class SignupResponse
+    public class SignupResponse : ResponseBase
     {
         public string Result { get; set; }
     }

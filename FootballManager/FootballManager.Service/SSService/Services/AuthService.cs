@@ -4,6 +4,7 @@ using Dto.Auth.Response;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using SSService.Config;
+using System;
 
 namespace SSService.Services
 {
@@ -15,12 +16,13 @@ namespace SSService.Services
         {
             _service = service;
         }
-        [OwnTeam]
-        public SignupResponse Post(SignupRequest request)
+        //[OwnTeam]
+        public SignupResponse Get(SignupRequest request)
         {
+            throw new Exception("e groasa rau");
             return new SignupResponse()
             {
-                Result = CurrentSession.TeamId.Value.ToString()
+                Result = "3"// CurrentSession.TeamId.Value.ToString()
             };
         }
     }

@@ -13,5 +13,8 @@ namespace WcfService.Interfaces
     {
         [OperationContract]
         void SignUp(SignupRequest input);
+
+        [OperationContract]
+        string GetData(int input);
     }
 }

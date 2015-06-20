@@ -9,10 +9,10 @@ using System.Text;
 
 namespace Dto.Auth.Request
 {
-    [Authenticate]
+    // [Authenticate]
     [Route("/signup")]
     [Route("/signup", Verbs = "POST")]
-    public class SignupRequest : IReturn<SignupResponse>, ITeam
+    public class SignupRequest : IReturn<SignupResponse>
     {
         public string DisplayName { get; set; }
 
@@ -21,7 +21,5 @@ namespace Dto.Auth.Request
         public string Password { get; set; }
 
         public string Email { get; set; }
-
-        public int TeamId { get; set; }
     }
 }

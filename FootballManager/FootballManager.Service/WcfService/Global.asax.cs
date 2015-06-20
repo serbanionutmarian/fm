@@ -11,6 +11,10 @@ using System.Web.SessionState;
 using WcfService.AutofacModules;
 using System.Data.Entity;
 using DataModel;
+using System.ServiceModel.Channels;
+using System.ServiceModel;
+using System.Net;
+using WcfService.Config;
 
 namespace WcfService
 {
@@ -19,8 +23,20 @@ namespace WcfService
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            System.Web.ApplicationServices.AuthenticationService.Authenticating += new EventHandler<System.Web.ApplicationServices.AuthenticatingEventArgs>(AuthenticationService_Authenticating);
             Database.SetInitializer<DbManagerContext>(null);
             InitIoc();
+        }
+
+        private void AuthenticationService_Authenticating(object sender, System.Web.ApplicationServices.AuthenticatingEventArgs e)
+        {
+            e.Authenticated = e.UserName == "ionut" && e.Password == "123";
+            e.AuthenticationIsComplete = true;
+
+            if (e.Authenticated)
+            {
+                new AuthenticationCookie().SetTicket(e.UserName);
+            }
         }
 
         private static void InitIoc()

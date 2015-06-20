@@ -33,21 +33,53 @@ namespace ServiceCaller
             _client = new JsonServiceClient(ServiceUrl);
             _client.AlwaysSendBasicAuthHeader = true;
         }
-        public void RunWithAuthentication(Action<JsonServiceClient> action)
+        public T GetResponseWithError<T>(bool authenticatedError)
+            where T : ResponseBase, new()
+        {
+            var response = ResponseBase.CreateValidationError<T>("Unexpected error");
+            response.Error.IsValidationError = false;
+            response.Error.AuthenticatedError = authenticatedError;
+            return response;
+        }
+        public T Run<T>(Func<JsonServiceClient, T> action)
+            where T : ResponseBase, new()
+        {
+            try
+            {
+                return action(_client);
+            }
+            catch (ServiceStack.ServiceClient.Web.WebServiceException)
+            {
+                return GetResponseWithError<T>(false);
+            }
+        }
+        public T RunWithAuthentication<T>(Func<JsonServiceClient, T> action)
+            where T : ResponseBase, new()
         {
             EnsureAuthentication();
             try
             {
-                action(_client);
+                return action(_client);
             }
-            catch (WebServiceException ex)
+            catch (WebServiceException ex1)
             {
                 // subsequent requests for unauthorized(may be the server has been resarted)
-                if (ex.StatusCode == 401)
+                if (ex1.StatusCode == 401)
                 {
                     Authenticate();
-                    action(_client);
+                    try
+                    {
+                        return action(_client);
+                    }
+                    catch (WebServiceException ex2)
+                    {
+                        if (ex2.StatusCode == 401)
+                        {
+                            return GetResponseWithError<T>(true);
+                        }
+                    }
                 }
+                return GetResponseWithError<T>(false);
             }
         }
 
@@ -55,19 +87,19 @@ namespace ServiceCaller
         {
             if (!_isAuthenticated)
             {
-                _isAuthenticated = true;
                 Authenticate();
             }
         }
 
         private void Authenticate()
         {
-            _client.Get<ServiceStack.Common.ServiceClient.Web.AuthResponse>(new ServiceStack.Common.ServiceClient.Web.Auth()
-            {
-                UserName = _credentials.UserName,
-                Password = _credentials.Password,
-                RememberMe = true
-            });
+            var response = _client.Get<ServiceStack.Common.ServiceClient.Web.AuthResponse>(new ServiceStack.Common.ServiceClient.Web.Auth()
+               {
+                   UserName = _credentials.UserName,
+                   Password = _credentials.Password,
+                   RememberMe = true
+               });
+            _isAuthenticated = true;
         }
 
         public void Dispose()

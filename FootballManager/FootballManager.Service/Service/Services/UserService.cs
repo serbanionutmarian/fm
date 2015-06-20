@@ -12,13 +12,11 @@ namespace DataService.Services
 {
     public class UserService : EntityService<User>, IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IUserRepository _userRepository;
 
         public UserService(IUnitOfWork unitOfWork, IUserRepository userRepository)
             : base(unitOfWork, userRepository)
         {
-            _unitOfWork = unitOfWork;
             _userRepository = userRepository;
         }
         public User GetById(int userId)

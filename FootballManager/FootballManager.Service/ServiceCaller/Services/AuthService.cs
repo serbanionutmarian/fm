@@ -1,4 +1,5 @@
-﻿using Dto.Auth.Request;
+﻿using Dto;
+using Dto.Auth.Request;
 using Dto.Auth.Response;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,18 @@ namespace ServiceCaller.Services
     {
         public SignupResponse SignUp(SignupRequest request)
         {
-            SignupResponse response = null;
-            _caller.RunWithAuthentication(client =>
-            {
-                response = client.Post<SignupResponse>(request);
-            });
-            return response;
+            return _caller.Run(client =>
+             {
+                 return client.Get<SignupResponse>(request);
+             });
+
+
+            ////SignupResponse response = null;
+            //_caller.RunWithAuthentication(client =>
+            //{
+            //    return client.Post<SignupResponse>(request);
+            //});
+            return null;
         }
     }
 }

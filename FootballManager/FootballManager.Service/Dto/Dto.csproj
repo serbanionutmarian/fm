@@ -67,6 +67,7 @@
     <Compile Include="ITeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\SignupRequest.cs" />
+    <Compile Include="ResponseBase.cs" />
     <Compile Include="Response\SignupResponse.cs" />
     <Compile Include="ServiceCredentials.cs" />
   </ItemGroup>

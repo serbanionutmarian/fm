@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dto.Auth.Request;
 using Dto.Auth.Response;
+using Dto;
 
 namespace DataService.Services
 {
@@ -40,7 +41,8 @@ namespace DataService.Services
             var team = _teamRepository.GetRandomBoot(request.CountryId);
             if (team == null)
             {
-                throw new Exception("There is no team to take in this country!! Please select another country or wait to the end of the month!!");
+                var error = "There is no team to take in this country!! Please select another country or wait to the end of the month!!";
+                return ResponseBase.CreateValidationError<SignupResponse>(error);
             }
             team.IsBoot = false;
             _userRepository.Add(new DataModel.Tables.User()

@@ -14,7 +14,6 @@ namespace WcfService.AutofacModules
             builder.RegisterAssemblyTypes(Assembly.Load("WcfService"))
                       .Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-
         }
     }
 }
