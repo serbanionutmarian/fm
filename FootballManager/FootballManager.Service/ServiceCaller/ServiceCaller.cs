@@ -7,18 +7,18 @@ using System.Text;
 
 namespace ServiceCaller
 {
-    public class ServiceCaller : IDisposable
+    public class ServiceHelper : IDisposable
     {
         private const string ServiceUrl = "http://localhost:62333/";
 
-        private static ServiceCaller _instance;
-        public static ServiceCaller Instance
+        private static ServiceHelper _instance;
+        public static ServiceHelper Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new ServiceCaller();
+                    _instance = new ServiceHelper();
                 }
                 return _instance;
             }
@@ -27,16 +27,16 @@ namespace ServiceCaller
         private bool _isAuthenticated = false;
 
         private JsonServiceClient _client;
-        private ServiceCaller()
+        private ServiceHelper()
         {
             _credentials = ServiceCredentials.Instance;
             _client = new JsonServiceClient(ServiceUrl);
             _client.AlwaysSendBasicAuthHeader = true;
         }
-        public T GetResponseWithError<T>(bool authenticatedError)
+        public T GetResponseWithUnexpectdError<T>(bool authenticatedError)
             where T : ResponseBase, new()
         {
-            var response = ResponseBase.CreateValidationError<T>("Unexpected error");
+            var response = ResponseBase.CreateUnexpectedError<T>();
             response.Error.IsValidationError = false;
             response.Error.AuthenticatedError = authenticatedError;
             return response;
@@ -50,13 +50,22 @@ namespace ServiceCaller
             }
             catch (ServiceStack.ServiceClient.Web.WebServiceException)
             {
-                return GetResponseWithError<T>(false);
+                return GetResponseWithUnexpectdError<T>(false);
             }
         }
         public T RunWithAuthentication<T>(Func<JsonServiceClient, T> action)
             where T : ResponseBase, new()
         {
-            EnsureAuthentication();
+            bool prevIsAuthenticated = _isAuthenticated;
+            if (!_isAuthenticated)
+            {
+                var responseError = TryToAuthenticate<T>();
+                if (responseError != null)
+                {
+                    return responseError;
+                }
+                _isAuthenticated = true;
+            }
             try
             {
                 return action(_client);
@@ -66,7 +75,15 @@ namespace ServiceCaller
                 // subsequent requests for unauthorized(may be the server has been resarted)
                 if (ex1.StatusCode == 401)
                 {
-                    Authenticate();
+                    if (!prevIsAuthenticated)
+                    {
+                        return GetResponseWithUnexpectdError<T>(true);
+                    }
+                    var responseError = TryToAuthenticate<T>();
+                    if (responseError != null)
+                    {
+                        return responseError;
+                    }
                     try
                     {
                         return action(_client);
@@ -75,31 +92,42 @@ namespace ServiceCaller
                     {
                         if (ex2.StatusCode == 401)
                         {
-                            return GetResponseWithError<T>(true);
+                            return GetResponseWithUnexpectdError<T>(true);
                         }
                     }
                 }
-                return GetResponseWithError<T>(false);
+                return GetResponseWithUnexpectdError<T>(false);
             }
         }
 
-        private void EnsureAuthentication()
+
+        private T TryToAuthenticate<T>()
+             where T : ResponseBase, new()
         {
-            if (!_isAuthenticated)
+            int responseCode;
+            try
             {
-                Authenticate();
+                var response = _client.Get<ServiceStack.Common.ServiceClient.Web.AuthResponse>(new ServiceStack.Common.ServiceClient.Web.Auth()
+                   {
+                       UserName = _credentials.UserName,
+                       Password = _credentials.Password,
+                       RememberMe = true
+                   });
+                responseCode = 200;
             }
-        }
-
-        private void Authenticate()
-        {
-            var response = _client.Get<ServiceStack.Common.ServiceClient.Web.AuthResponse>(new ServiceStack.Common.ServiceClient.Web.Auth()
-               {
-                   UserName = _credentials.UserName,
-                   Password = _credentials.Password,
-                   RememberMe = true
-               });
-            _isAuthenticated = true;
+            catch (WebServiceException ex)
+            {
+                responseCode = ex.StatusCode;
+            }
+            if (responseCode == 401)
+            {
+                return GetResponseWithUnexpectdError<T>(true);
+            }
+            else if (responseCode != 200)
+            {
+                return GetResponseWithUnexpectdError<T>(false);
+            }
+            return null;
         }
 
         public void Dispose()

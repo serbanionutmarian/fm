@@ -1,6 +1,6 @@
 ﻿using Dto;
-using Dto.Auth.Request;
-using Dto.Auth.Response;
+using Dto.Request;
+using Dto.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,13 @@ namespace ServiceCaller.Services
         {
             return _caller.Run(client =>
              {
-                 return client.Get<SignupResponse>(request);
+                 var response = client.Post<SignupResponse>(request);
+                 new ServiceCaller.Files.CredentialsFile().Save(new Files.CredentialsModel()
+                 {
+                     UserName = request.Email,
+                     Password = request.Password
+                 });
+                 return response;
              });
 
 
@@ -23,7 +29,6 @@ namespace ServiceCaller.Services
             //{
             //    return client.Post<SignupResponse>(request);
             //});
-            return null;
         }
     }
 }

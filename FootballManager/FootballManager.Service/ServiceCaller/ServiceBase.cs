@@ -8,6 +8,6 @@ namespace ServiceCaller
 {
     public abstract class ServiceBase
     {
-        protected ServiceCaller _caller = ServiceCaller.Instance;
+        protected ServiceHelper _caller = ServiceHelper.Instance;
     }
 }

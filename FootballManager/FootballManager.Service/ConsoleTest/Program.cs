@@ -13,8 +13,8 @@ using DataModel;
 using ServiceStack;
 using System.ServiceModel;
 using LightInject;
-using Dto.Auth.Request;
-using Dto.Auth.Response;
+using Dto.Request;
+using Dto.Response;
 using System.Reflection;
 using DataModel.Player;
 using System.ServiceModel.Channels;
@@ -27,24 +27,8 @@ namespace ConsoleTest
 {
     class Program
     {
-        static void Do()
-        {
-            throw new Exception("ssds");
-        }
         static void Main(string[] args)
         {
-            //try
-            //{
-            //    Do();
-            //}
-            //catch (Exception ex)
-            //{
-            //    //CreatedAt
-            //    //ex.Message;
-            //    //ex.Source;
-            //    //ex.StackTrace;
-
-            //}
             var service = new ServiceCaller.Services.AuthService();
             var response = service.SignUp(new SignupRequest()
               {

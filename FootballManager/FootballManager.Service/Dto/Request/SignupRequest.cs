@@ -1,4 +1,4 @@
-﻿using Dto.Auth.Response;
+﻿using Dto.Response;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Dto.Auth.Request
+namespace Dto.Request
 {
     // [Authenticate]
     [Route("/signup")]

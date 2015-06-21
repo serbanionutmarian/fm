@@ -1,6 +1,6 @@
 ﻿using DataModel.Tables;
-using Dto.Auth.Request;
-using Dto.Auth.Response;
+using Dto.Request;
+using Dto.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;

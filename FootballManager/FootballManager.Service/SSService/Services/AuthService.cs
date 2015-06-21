@@ -1,6 +1,6 @@
 ﻿using DataService.Interfaces;
-using Dto.Auth.Request;
-using Dto.Auth.Response;
+using Dto.Request;
+using Dto.Response;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using SSService.Config;
@@ -19,7 +19,6 @@ namespace SSService.Services
         //[OwnTeam]
         public SignupResponse Get(SignupRequest request)
         {
-            throw new Exception("e groasa rau");
             return new SignupResponse()
             {
                 Result = "3"// CurrentSession.TeamId.Value.ToString()

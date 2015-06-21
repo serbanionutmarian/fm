@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dto.Auth.Request;
-using Dto.Auth.Response;
+using Dto.Request;
+using Dto.Response;
 using Dto;
 
 namespace DataService.Services

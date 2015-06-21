@@ -10,13 +10,24 @@ namespace Dto
         public ResponseError Error { get; set; }
 
         public static T CreateValidationError<T>(string content)
+             where T : ResponseBase, new()
+        {
+            return CreateError<T>(content, true);
+        }
+        public static T CreateUnexpectedError<T>()
+             where T : ResponseBase, new()
+        {
+            return CreateError<T>("Unexpected error", false);
+        }
+        private static T CreateError<T>(string content, bool isValidationError)
             where T : ResponseBase, new()
         {
             return new T()
             {
                 Error = new ResponseError()
                 {
-                    Content = content
+                    Content = content,
+                    IsValidationError = isValidationError
                 }
             };
         }
