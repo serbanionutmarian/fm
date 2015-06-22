@@ -20,7 +20,16 @@ namespace ServiceCaller
             {
                 if (_filePath == null)
                 {
-                    _filePath = string.Format("{0}/{1}", Application.persistentDataPath, FileName);
+                    string persistentDataPath = null;
+
+                    //#if TestApp
+                    //                    persistentDataPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                    //#else
+                    persistentDataPath = Application.persistentDataPath;
+                    //#endif
+
+                    _filePath = Path.Combine(persistentDataPath, FileName);
                 }
                 return _filePath;
             }
@@ -35,9 +44,13 @@ namespace ServiceCaller
                 fileStream.Close();
             }
         }
+        public bool Exists()
+        {
+            return File.Exists(FilePath);
+        }
         public TModel Load()
         {
-            if (!File.Exists(FilePath))
+            if (!Exists())
             {
                 return default(TModel);
             }
@@ -52,7 +65,7 @@ namespace ServiceCaller
         }
         public void Delete()
         {
-            if (File.Exists(FilePath))
+            if (Exists())
             {
                 File.Delete(FilePath);
             }

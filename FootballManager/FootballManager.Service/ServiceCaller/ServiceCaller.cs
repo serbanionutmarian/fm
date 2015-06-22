@@ -1,4 +1,7 @@
 ﻿using Dto;
+using Dto.Request;
+using Dto.Response;
+using ServiceCaller.Files;
 using ServiceStack.ServiceClient.Web;
 using System;
 using System.Collections.Generic;
@@ -23,13 +26,16 @@ namespace ServiceCaller
                 return _instance;
             }
         }
-        private ServiceCredentials _credentials;
+
+        private CredentialsFile _credentialsFile;
+        private CredentialsModel _credentials;
         private bool _isAuthenticated = false;
 
         private JsonServiceClient _client;
         private ServiceHelper()
         {
-            _credentials = ServiceCredentials.Instance;
+            _credentialsFile = new CredentialsFile();
+            _credentials = _credentialsFile.Load();
             _client = new JsonServiceClient(ServiceUrl);
             _client.AlwaysSendBasicAuthHeader = true;
         }
@@ -100,10 +106,13 @@ namespace ServiceCaller
             }
         }
 
-
         private T TryToAuthenticate<T>()
              where T : ResponseBase, new()
         {
+            if (_credentials == null)
+            {
+                return GetResponseWithUnexpectdError<T>(true);
+            }
             int responseCode;
             try
             {
@@ -128,6 +137,26 @@ namespace ServiceCaller
                 return GetResponseWithUnexpectdError<T>(false);
             }
             return null;
+        }
+
+        public SignupResponse SignUp(SignupRequest request)
+        {
+            return Run(client =>
+              {
+                  var response = client.Post<SignupResponse>(request);
+                  _credentials = new Files.CredentialsModel()
+                  {
+                      UserName = request.Email,
+                      Password = request.Password
+                  };
+                  _credentialsFile.Save(_credentials);
+                  return response;
+              });
+        }
+
+        public bool IsLogIn()
+        {
+            return _credentialsFile.Exists();
         }
 
         public void Dispose()

@@ -38,8 +38,9 @@ namespace ConsoleTest
                   Password = "sd"
               });
 
-            Database.SetInitializer<DbManagerContext>(null);
-            RegisterUsingIoc(RunMethod);
+            //return;
+            //Database.SetInitializer<DbManagerContext>(null);
+            //    RegisterUsingIoc(RunMethod);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -49,8 +50,14 @@ namespace ConsoleTest
 
         private static void RunMethod(ServiceContainer container)
         {
-            var gg = container.GetInstance<IJobService>();
-            gg.Do();
+            var service = container.GetInstance<IAuthService>();
+            service.SignUp(new SignupRequest()
+              {
+                  CountryId = 0,
+                  DisplayName = "sds",
+                  Email = "sad",
+                  Password = "sd"
+              });
 
             //ServiceCredentials.Instance.Init("test", "123");
             //var service = new ServiceCaller.Services.AuthService();

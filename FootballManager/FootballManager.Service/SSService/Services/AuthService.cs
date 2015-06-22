@@ -17,12 +17,9 @@ namespace SSService.Services
             _service = service;
         }
         //[OwnTeam]
-        public SignupResponse Get(SignupRequest request)
+        public SignupResponse Post(SignupRequest request)
         {
-            return new SignupResponse()
-            {
-                Result = "3"// CurrentSession.TeamId.Value.ToString()
-            };
+            return _service.SignUp(request);
         }
     }
 }
