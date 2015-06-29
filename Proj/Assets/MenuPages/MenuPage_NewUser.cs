@@ -6,6 +6,9 @@ namespace FMGUI
 {
 	public class MenuPage_NewUser : MenuPage
 	{
+		public ComboBox mCountriesCombo;
+		GUIContent[]     mComboItems;
+
 		public override void OnOpened ()
 		{
 			OnEnter ();
@@ -24,8 +27,31 @@ namespace FMGUI
 		public override void OnEnter()
 		{
 			SetCreateFailedTextState (false, "");
+
+			PopulateContriesDropbox ();
 		}
-		
+
+		private void PopulateContriesDropbox()
+		{
+			mComboItems = new GUIContent[(int)Gameplay.CountryId.CID_NUM];
+			for (int i = 0; i < mComboItems.Length; i++)
+			{
+				mComboItems[i] = new GUIContent(Gameplay.Utils.GetCountryNameById((Gameplay.CountryId)i));
+			}
+			
+			GUIStyle listStyle = new GUIStyle();
+			listStyle.normal.textColor = Color.white; 
+			listStyle.onHover.background =
+				listStyle.hover.background = new Texture2D(2, 2);
+			listStyle.padding.left =
+				listStyle.padding.right =
+					listStyle.padding.top =
+					listStyle.padding.bottom = 4;
+			
+			listStyle.fixedHeight = 30;
+			mCountriesCombo = new ComboBox(new Rect(450, 430, 100, 30), mComboItems[0], mComboItems, "button", "box", listStyle);
+		}
+
 		public override void OnHide()
 		{
 			
@@ -50,9 +76,12 @@ namespace FMGUI
 
 			GameObject mailGO    		= GameObject.Find ("Input_Mail");
 			InputField mailInput 		= mailGO.GetComponentInChildren<InputField> ();
+
+			MenuPage_NewUser thisMenuPage = (MenuPage_NewUser) MenuManager.mMenuPages[(int)MenuPages.PAGE_NEW_USER];
+			Gameplay.CountryId countryId = (Gameplay.CountryId)thisMenuPage.mCountriesCombo.SelectedItemIndex; 
 			
 			// TODO: Call here login
-			Debug.Log ("New user: " + "user: " + userNameInput.text + " pass: " + passwordInput.text + " mail: " + mailInput.text);
+			Debug.Log ("New user: " + "user: " + userNameInput.text + " pass: " + passwordInput.text + " mail: " + mailInput.text + countryId);
 			CommonMessages.UserConnectedDataMsg userTeam = new CommonMessages.UserConnectedDataMsg ();
 			Gameplay.GameDatabase.Instance.CreateNewOnlineGame (userTeam);
 

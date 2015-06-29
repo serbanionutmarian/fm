@@ -290,6 +290,7 @@ namespace Gameplay
 		// THese two will be filled when generating/updating the league where this club belong
 		public int 					mDivisionId;	
 		public int 					mLeagueId;		
+		public CountryId			mCountryId;
 		//-----
 		
 		// This will be set when creating a club. Don't modify this !!

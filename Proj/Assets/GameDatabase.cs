@@ -115,7 +115,7 @@ namespace Gameplay
 					// Generate the clubs for this league
 					for (int clubIdInLeague = 0; clubIdInLeague < CompetitionEngine.mNumTeamsPerLeague; clubIdInLeague++)
 					{
-						DataGenerator.GenerateDataForClub(mClubs[clubGlobalIndex], divId);
+						DataGenerator.GenerateDataForClub(mClubs[clubGlobalIndex], divId, CountryId.CID_ROMANIA);
 						mClubs[clubGlobalIndex].mClubId = clubGlobalIndex;
 						clubsInNewGeneratedLeague[clubIdInLeague] = mClubs[clubGlobalIndex];
 						clubGlobalIndex++;

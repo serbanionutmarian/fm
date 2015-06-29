@@ -165,11 +165,12 @@ namespace Gameplay
 		static public string GenerateRandomClubName() { return "TODO"; }
 		static public string GenerateRandomManagerOrPlayerName() { return "TODO"; }
 
-		static public void GenerateDataForClub(Club club, int division)
+		static public void GenerateDataForClub(Club club, int division, CountryId countryId)
 		{
 			club.mDivisionId = division;
 			club.mClubName = GenerateRandomClubName ();
 			club.mManagerName = GenerateRandomManagerOrPlayerName ();
+			club.mCountryId = countryId;
 
 			// Generate all players for this team
 			//----------------------------------
