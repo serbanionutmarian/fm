@@ -1,0 +1,14 @@
+Initial:
+-----------
+-> User login / registration
+-> populate initial tactics, lineup etc on server gameplay component.
+-> fetch data from client
+-> update tactcs / instructions data from client on server.
+
+
+Prototype:
+------------
+-> match and time scheduling on server
+-> basic match simulation on server gameplay component
+-> pages for team selection and player attributes 
+
